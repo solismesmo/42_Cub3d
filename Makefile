@@ -3,24 +3,29 @@ NAME_BONUS		:= cub3D_bonus
 
 CFLAGS	:= -g3 -Wextra -Wall -Werror -Wunreachable-code
 LIBMLX	:= ./includes/lib/MLX42
-HEADERS	:= -I $(LIBMLX)/include -I ./includes/cubed.h
+LIBFT	:= ./includes/libft
+HEADERS	:= -I $(LIBMLX)/include -I $(LIBFT)
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 MK = mkdir -p
 
 SOURCE_PATH = src/
 SOURCE_BONUS_PATH = src_bonus/
 
-SRCS	:= main.c
+LIBFT_PATH = ./includes/libft/
+LIBFT = ./includes/libft/libft.a
 
-SRCS_BONUS	:= 
+SRCS	:= main.c map_check_utils.c map_check_utils_II.c map_check_utils_III.c \
+			open_close_args.c free_error.c
+
 
 OBJECTS_PATH = objects
 OBJS	:= $(addprefix $(OBJECTS_PATH)/, $(SRCS:%.c=%.o))
 
-OBJECTS_BONUS_PATH = objects_bonus
-OBJS_BONUS	:= $(addprefix $(OBJECTS_BONUS_PATH)/, $(SRCS_BONUS:%.c=%.o))
 
-all:  libmlx $(NAME)
+all: $(LIBFT) libmlx $(NAME)
+
+$(LIBFT): 
+	make -C $(LIBFT_PATH)
 
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
@@ -30,7 +35,7 @@ $(OBJECTS_PATH)/%.o: $(SOURCE_PATH)%.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<) "
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBFT) $(LIBS) $(HEADERS) -o $(NAME)
 
 bonus: libmlx $(NAME_BONUS)
 
@@ -46,9 +51,11 @@ clean:
 	@rm -rf $(LIBMLX)/build 
 	@rm -rf $(OBJECTS_PATH)
 	@rm -rf $(OBJECTS_BONUS_PATH)
+	@rm -rf $(LIBFT_PATH)/*.o
+
 
 fclean: clean
-	@rm -rf $(NAME) $(NAME_BONUS) 
+	@rm -rf $(NAME) $(LIBFT) $(NAME_BONUS) 
 
 re: fclean all
 

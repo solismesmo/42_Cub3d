@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cubed.h                                            :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/01/15 21:23:55 by bruno            ###   ########.fr       */
+/*   Updated: 2025/01/15 22:39:44 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 # include <stdarg.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include "../includes/libft/libft.h"
 # include "../includes/lib/MLX42/include/MLX42/MLX42.h"
 
-# define MAP_EXT_DEF ".ber"
+# define MAP_EXT_DEF ".cub"
 
 // assets
 # define WALL_PNG "./src/images/wall.png"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/01/15 22:39:42 by livieira         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:02:15 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,18 @@ void	ft_init_map_matrix(t_game *game)
 	ft_map_lego(game);
 }
 
+void	ft_init_mlx(t_game *game)
+{
+	mlx_set_setting(MLX_STRETCH_IMAGE, true);
+	game->mlx = mlx_init(((game->map.columns) - 1) * WIDTH, \
+	game->map.rows * HEIGHT, "Cube 3D", true);
+	if (!game->mlx)
+	{
+		ft_error("Erro na mlx. \n", game);
+		exit(1);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	*game;
@@ -84,7 +96,8 @@ int	main(int argc, char **argv)
 	game->map_name = argv[1];
 	ft_map_open(game);
 	ft_init_map(game);
-	//ft_init_mlx(game);
+	ft_init_mlx(game);
+	mlx_loop(game->mlx);
 	//ft_image_init(game);
 	//mlx_key_hook(game->mlx, &ft_keyhooks, game);
 	//mlx_loop(game->mlx);

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/01/15 15:24:11 by livieira         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:23:55 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBED_H
-# define CUBED_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # define WIDTH 64
 # define HEIGHT 64

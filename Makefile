@@ -3,7 +3,7 @@ NAME_BONUS		:= cub3D_bonus
 
 CFLAGS	:= -g3 -Wextra -Wall -Werror -Wunreachable-code
 LIBMLX	:= ./includes/lib/MLX42
-HEADERS	:= -I $(LIBMLX)/include -I
+HEADERS	:= -I $(LIBMLX)/include -I ./includes/cubed.h
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 MK = mkdir -p
 

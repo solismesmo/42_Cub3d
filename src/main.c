@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/01/16 19:02:15 by bruno            ###   ########.fr       */
+/*   Updated: 2025/01/16 23:05:59 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	ft_init_map_matrix(t_game *game)
 void	ft_init_mlx(t_game *game)
 {
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	game->mlx = mlx_init(((game->map.columns) - 1) * WIDTH, \
-	game->map.rows * HEIGHT, "Cube 3D", true);
+	game->mlx = mlx_init( WINDOW_WIDTH, \
+	WINDOW_HEIGHT, "Cube 3D", true);
 	if (!game->mlx)
 	{
 		ft_error("Erro na mlx. \n", game);
@@ -97,7 +97,23 @@ int	main(int argc, char **argv)
 	ft_map_open(game);
 	ft_init_map(game);
 	ft_init_mlx(game);
+    mlx_image_t* img = mlx_new_image(game->mlx, 320, 100);
+    memset(img->pixels, 255, img->width * img->height * BPP);
+    mlx_image_to_window(game->mlx, img, 0, 0);
+	int x = 0;
+	int y = 0;
+	while (y < (WINDOW_HEIGHT)/2)
+	{
+		x = 0;
+		while (x < WINDOW_WIDTH)
+		{
+			mlx_put_pixel(img, x, y, 0xCFD1F9FF);
+			x++;
+		}
+		y++;
+	}
 	mlx_loop(game->mlx);
+
 	//ft_image_init(game);
 	//mlx_key_hook(game->mlx, &ft_keyhooks, game);
 	//mlx_loop(game->mlx);

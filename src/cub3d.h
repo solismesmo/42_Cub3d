@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/01/15 22:39:44 by livieira         ###   ########.fr       */
+/*   Updated: 2025/01/16 21:59:30 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # define WIDTH 64
 # define HEIGHT 64
+
+# define WINDOW_WIDTH 320
+# define WINDOW_HEIGHT 200
+
+#define BPP sizeof(int32_t)
 
 # include <stddef.h>
 # include <stdlib.h>

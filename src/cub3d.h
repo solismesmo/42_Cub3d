@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/01/20 22:12:15 by bruno            ###   ########.fr       */
+/*   Updated: 2025/01/21 19:51:20 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ typedef struct s_player
 
 typedef struct s_camera
 {
-	int		plane[2];
-	int		negative_plane[2];
+	float	plane[2];
+	float	negative_plane[2];
 
 }	t_camera;
 
@@ -153,6 +153,7 @@ void	ft_delete_image(t_game *game);
 void	ft_init_moves(t_game *game);
 void	ft_increment(t_game *game, int i, int j);
 void	ft_init_map(t_game *game);
-void    init_player(t_game *game);
+void    ft_init_player(t_game *game);
+void	ft_find_rays(t_game *game);
 
 #endif

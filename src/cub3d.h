@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/01/16 21:59:30 by bruno            ###   ########.fr       */
+/*   Updated: 2025/01/20 22:12:15 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,21 @@ typedef struct s_map
 	int				check_coins;
 }	t_map;
 
+typedef struct s_player
+{
+	int				vector_pos[2];
+	int				vector_dir[2];
+	int				x;
+	int				y;
+}	t_player;
+
+typedef struct s_camera
+{
+	int		plane[2];
+	int		negative_plane[2];
+
+}	t_camera;
+
 typedef struct s_mult
 {
 	mlx_image_t		*image;
@@ -89,6 +104,7 @@ typedef struct s_image
 typedef struct s_game
 {
 	mlx_t			*mlx;
+	t_player		player_info;
 	int				fd;
 	char			*map_name;
 	t_map			map;
@@ -97,6 +113,7 @@ typedef struct s_game
 	t_mult			coin[100000];
 	t_mult			player[1];
 	int				moves;
+	t_camera		camera;
 
 }					t_game;
 
@@ -136,5 +153,6 @@ void	ft_delete_image(t_game *game);
 void	ft_init_moves(t_game *game);
 void	ft_increment(t_game *game, int i, int j);
 void	ft_init_map(t_game *game);
+void    init_player(t_game *game);
 
 #endif

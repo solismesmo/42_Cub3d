@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/01/16 23:05:59 by bruno            ###   ########.fr       */
+/*   Updated: 2025/01/20 21:05:13 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	main(int argc, char **argv)
 
 	//ft_image_init(game);
 	//mlx_key_hook(game->mlx, &ft_keyhooks, game);
-	//mlx_loop(game->mlx);
+	mlx_loop(game->mlx);
 	//ft_finish("Thanks for playing", game);
 	return (0);
 }

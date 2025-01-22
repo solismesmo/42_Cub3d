@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/01/21 22:52:15 by bruno            ###   ########.fr       */
+/*   Updated: 2025/01/22 01:02:04 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,38 @@ void ft_find_rays(t_game *game)
 {
     int     pixels;
     float   multiplier; 
-    float   camere_pixel[2];
-    float   ray_dir[2];
-    float   pos_dir_plane[2];
-    float   pos_dir_minus_plane[2];
+    float   camera_pixel[2];
 
-    pos_dir_plane[0] = 0;
-    pos_dir_plane[1]= 0 ;
     pixels = 0;
     multiplier = 0;
+    game->camera.ray_dir[0] = 0;
+    game->camera.ray_dir[1] = 0;
     while (pixels <= WINDOW_WIDTH)
     {
         multiplier = 2.0f * ((float)pixels / (float)WINDOW_WIDTH) -1.0f;
-        camere_pixel[0] = game->camera.plane[0] * multiplier;
-        camere_pixel[1] = game->camera.plane[1] * multiplier;
-        ray_dir[0] = game->player_info.vector_dir[0] + camere_pixel[0];
-        ray_dir[1] = game->player_info.vector_dir[1] + camere_pixel[1];
+        camera_pixel[0] = game->camera.plane[0] * multiplier;
+        camera_pixel[1] = game->camera.plane[1] * multiplier;
+        game->camera.ray_dir[0] = game->player_info.vector_dir[0] + camera_pixel[0];
+        game->camera.ray_dir[1] = game->player_info.vector_dir[1] + camera_pixel[1];
 
         printf("Multiplicador: %.2f\n", multiplier);
-        printf("Camere Pixel: [%.2f, %.2f]\n", camere_pixel[0], camere_pixel[1]);
-        printf("Ray Dir: [%.2f, %.2f]\n", ray_dir[0], ray_dir[1]);
+        printf("Camere Pixel: [%.2f, %.2f]\n", camera_pixel[0], camera_pixel[1]);
+        printf("Ray Dir: [%.2f, %.2f]\n", game->camera.ray_dir[0], game->camera.ray_dir[1]);
         
         pixels++;
     }
-    pos_dir_plane[0] = game->player_info.vector_pos[0] + game->player_info.vector_dir[0] + game->camera.plane[0];
-    pos_dir_plane[1] = game->player_info.vector_pos[1] + game->player_info.vector_dir[1] + game->camera.plane[1];
-    printf("Pos Dir Plane: [%.2f, %.2f]\n", pos_dir_plane[0], pos_dir_plane[1]);
-    pos_dir_minus_plane[0] = (game->player_info.vector_pos[0] + game->player_info.vector_dir[0]) - game->camera.plane[0];
-    pos_dir_minus_plane[1] = (game->player_info.vector_pos[1] + game->player_info.vector_dir[1]) - game->camera.plane[1];
-    printf("Pos Dir minus Plane: [%.2f, %.2f]\n", pos_dir_minus_plane[0], pos_dir_minus_plane[1]);
+}
+void ft_dda(t_game *game)
+{
+    float mag_raydir;
+    float delta_distx;
+    float delta_disty;
+
+    delta_distx = 0;
+    delta_disty = 0;
+    
+    mag_raydir = hypotf(game->camera.ray_dir[0], game->camera.ray_dir[1]);
+    delta_distx = mag_raydir/game->camera.ray_dir[0];
+    delta_disty = mag_raydir/game->camera.ray_dir[1];
     
 }

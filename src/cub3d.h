@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/01/21 19:51:20 by bruno            ###   ########.fr       */
+/*   Updated: 2025/01/22 00:43:27 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <fcntl.h>
+# include <math.h>
 # include <stdio.h>
 # include "../includes/libft/libft.h"
 # include "../includes/lib/MLX42/include/MLX42/MLX42.h"
@@ -80,6 +81,7 @@ typedef struct s_camera
 {
 	float	plane[2];
 	float	negative_plane[2];
+	float   ray_dir[2];
 
 }	t_camera;
 
@@ -153,7 +155,8 @@ void	ft_delete_image(t_game *game);
 void	ft_init_moves(t_game *game);
 void	ft_increment(t_game *game, int i, int j);
 void	ft_init_map(t_game *game);
-void    ft_init_player(t_game *game);
+void	ft_init_player(t_game *game);
 void	ft_find_rays(t_game *game);
+void	ft_dda(t_game *game);
 
 #endif

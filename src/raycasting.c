@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/01/22 01:02:04 by bruno            ###   ########.fr       */
+/*   Updated: 2025/01/22 01:22:35 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void ft_find_rays(t_game *game)
         printf("Multiplicador: %.2f\n", multiplier);
         printf("Camere Pixel: [%.2f, %.2f]\n", camera_pixel[0], camera_pixel[1]);
         printf("Ray Dir: [%.2f, %.2f]\n", game->camera.ray_dir[0], game->camera.ray_dir[1]);
-        
+        ft_dda(game);
         pixels++;
     }
 }
@@ -62,5 +62,11 @@ void ft_dda(t_game *game)
     mag_raydir = hypotf(game->camera.ray_dir[0], game->camera.ray_dir[1]);
     delta_distx = mag_raydir/game->camera.ray_dir[0];
     delta_disty = mag_raydir/game->camera.ray_dir[1];
+    game->player_info.square_pos[0] = (int)game->player_info.vector_pos[0];
+    game->player_info.square_pos[1] = (int)game->player_info.vector_pos[1];
+
+    printf("Delta Dist X: %.2f\n", delta_distx);
+    printf("Delta Dist Y: %.2f\n", delta_disty);
+    printf("Map_square: [%d, %d]\n", game->player_info.square_pos[0], game->player_info.square_pos[1]);
     
 }

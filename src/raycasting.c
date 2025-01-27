@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/01/22 01:22:35 by bruno            ###   ########.fr       */
+/*   Updated: 2025/01/27 20:27:32 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void ft_dda(t_game *game)
     float mag_raydir;
     float delta_distx;
     float delta_disty;
+    //float dist_side_x;
 
     delta_distx = 0;
     delta_disty = 0;

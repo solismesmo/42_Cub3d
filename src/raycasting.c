@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/01/28 00:46:50 by bruno            ###   ########.fr       */
+/*   Updated: 2025/01/29 01:33:01 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void ft_dda(t_game *game)
     float dda_line_size_x;
     float dda_line_size_y;
     int wall_map_pos[2];
+    int hit_side;
 
     delta_distx = 0;
     delta_disty = 0;
@@ -71,6 +72,7 @@ void ft_dda(t_game *game)
     hit = 0;
     dda_line_size_x = 0;
     dda_line_size_y = 0;
+    hit_side = -1;
     
     mag_raydir = hypotf(game->camera.ray_dir[0], game->camera.ray_dir[1]);
     delta_distx = fabs(mag_raydir/game->camera.ray_dir[0]);
@@ -106,10 +108,23 @@ void ft_dda(t_game *game)
     dda_line_size_y = dist_side_y;
     wall_map_pos[0] = game->player_info.square_pos[0];
     wall_map_pos[1] = game->player_info.square_pos[1];
-    // while (hit == 0)
-    // {
-        
-    // }
-    
+    while (hit == 0)
+    {
+        if (dda_line_size_x < dda_line_size_y)
+        {
+            dda_line_size_x += delta_distx;
+            wall_map_pos[0] += step_x;
+            hit_side = 0;
+        }
+        else
+        {
+            dda_line_size_y += delta_disty;
+            wall_map_pos[1] += step_y;
+            hit_side = 1;
+        }
+        if(game->map.matrix[wall_map_pos[1]][wall_map_pos[0]] == '1')
+            hit = 1;
+    }
+    printf("hit_side: %d\n", hit_side);
     
 }

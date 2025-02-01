@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/01/29 01:33:01 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/01 02:52:32 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void ft_dda(t_game *game)
     float dda_line_size_y;
     int wall_map_pos[2];
     int hit_side;
+    float perpendicular_dist;
 
     delta_distx = 0;
     delta_disty = 0;
@@ -73,6 +74,7 @@ void ft_dda(t_game *game)
     dda_line_size_x = 0;
     dda_line_size_y = 0;
     hit_side = -1;
+    perpendicular_dist = 0;
     
     mag_raydir = hypotf(game->camera.ray_dir[0], game->camera.ray_dir[1]);
     delta_distx = fabs(mag_raydir/game->camera.ray_dir[0]);
@@ -125,6 +127,12 @@ void ft_dda(t_game *game)
         if(game->map.matrix[wall_map_pos[1]][wall_map_pos[0]] == '1')
             hit = 1;
     }
+    printf("dist_side_x: %.2f\n", dist_side_x);
+    printf("dist_side_y: %.2f\n", dist_side_y);
     printf("hit_side: %d\n", hit_side);
-    
+    if (hit_side == 0)
+        perpendicular_dist = fabs((wall_map_pos[0] - game->player_info.vector_pos[0] + ((1 - step_x) / 2)) / game->camera.ray_dir[0]);
+    else
+        perpendicular_dist = fabs((wall_map_pos[1] - game->player_info.vector_pos[1] + ((1 - step_y) / 2)) / game->camera.ray_dir[1]);
+    printf("Perpendicular Dist: %.2f\n", perpendicular_dist);
 }

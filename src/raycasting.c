@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/02/01 02:52:32 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/12 02:28:17 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,22 @@ void ft_find_rays(t_game *game)
     multiplier = 0;
     game->camera.ray_dir[0] = 0;
     game->camera.ray_dir[1] = 0;
+    
+    mlx_image_t* img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+    memset(img->pixels, 255, img->width * img->height * BPP);
+    mlx_image_to_window(game->mlx, img, 0, 0);
+	int x = 0;
+	int y = 0;
+	while (y < (WINDOW_HEIGHT)/2)
+	{
+		x = 0;
+		while (x < WINDOW_WIDTH)
+		{
+			mlx_put_pixel(img, x, y, 0xCFD1F9FF);
+			x++;
+		}
+		y++;
+	}
     while (pixels <= WINDOW_WIDTH)
     {
         multiplier = 2.0f * ((float)pixels / (float)WINDOW_WIDTH) -1.0f;
@@ -47,12 +63,16 @@ void ft_find_rays(t_game *game)
         printf("Camere Pixel: [%.2f, %.2f]\n", camera_pixel[0], camera_pixel[1]);
         printf("Ray Dir: [%.2f, %.2f]\n", game->camera.ray_dir[0], game->camera.ray_dir[1]);
         ft_dda(game);
+        while (game->img.wall_line_start < game->img.wall_line_end)
+        {
+            mlx_put_pixel(img, pixels, game->img.wall_line_start, 0xFFFF0000);
+            game->img.wall_line_start++;
+        }
         pixels++;
     }
 }
 void ft_dda(t_game *game)
 {
-    float mag_raydir;
     float delta_distx;
     float delta_disty;
     float dist_side_x;
@@ -65,7 +85,9 @@ void ft_dda(t_game *game)
     int wall_map_pos[2];
     int hit_side;
     float perpendicular_dist;
+    float wall_line_height;
 
+    wall_line_height= 0;
     delta_distx = 0;
     delta_disty = 0;
     step_x = 0;
@@ -76,9 +98,16 @@ void ft_dda(t_game *game)
     hit_side = -1;
     perpendicular_dist = 0;
     
-    mag_raydir = hypotf(game->camera.ray_dir[0], game->camera.ray_dir[1]);
-    delta_distx = fabs(mag_raydir/game->camera.ray_dir[0]);
-    delta_disty = fabs(mag_raydir/game->camera.ray_dir[1]);
+    if (game->camera.ray_dir[0] != 0)
+        delta_distx = fabs(1 / game->camera.ray_dir[0]);
+    else
+        delta_distx = INFINITY;
+    if (game->camera.ray_dir[1] != 0)
+        delta_disty = fabs(1 / game->camera.ray_dir[1]);
+    else
+        delta_disty = INFINITY;
+    //delta_distx = fabs(1/game->camera.ray_dir[0]);
+    //delta_disty = fabs(1/game->camera.ray_dir[1]);
     game->player_info.square_pos[0] = (int)game->player_info.vector_pos[0];
     game->player_info.square_pos[1] = (int)game->player_info.vector_pos[1];
 
@@ -135,4 +164,8 @@ void ft_dda(t_game *game)
     else
         perpendicular_dist = fabs((wall_map_pos[1] - game->player_info.vector_pos[1] + ((1 - step_y) / 2)) / game->camera.ray_dir[1]);
     printf("Perpendicular Dist: %.2f\n", perpendicular_dist);
+
+    wall_line_height = (WINDOW_HEIGHT / perpendicular_dist);
+    game->img.wall_line_start = WINDOW_HEIGHT / 2 - wall_line_height / 2;
+    game->img.wall_line_end = WINDOW_HEIGHT / 2 + wall_line_height / 2;
 }

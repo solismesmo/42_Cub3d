@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/01/22 01:11:32 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/12 01:53:06 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ typedef struct s_image
 	mlx_image_t		*wall;
 	mlx_image_t		*exit;
 	mlx_image_t		*coin;
-
+	float			wall_line_start;
+	float			wall_line_end;
 }	t_image;
 
 typedef struct s_game

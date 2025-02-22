@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/02/12 02:28:17 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/22 06:49:47 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void    ft_init_player(t_game *game)
 {
     game->player_info.vector_pos[0] = 5;
-    game->player_info.vector_pos[1] = 5;
+    game->player_info.vector_pos[1] = 7;
     game->player_info.vector_dir[0] = 0;
     game->player_info.vector_dir[1] = -1;
     game->player_info.x = 5;
-    game->player_info.y = 5;
+    game->player_info.y = 2;
     game->camera.plane[0] = 0.66;
     game->camera.plane[1] = 0;
     ft_find_rays(game);
@@ -59,14 +59,23 @@ void ft_find_rays(t_game *game)
         game->camera.ray_dir[0] = game->player_info.vector_dir[0] + camera_pixel[0];
         game->camera.ray_dir[1] = game->player_info.vector_dir[1] + camera_pixel[1];
 
-        printf("Multiplicador: %.2f\n", multiplier);
-        printf("Camere Pixel: [%.2f, %.2f]\n", camera_pixel[0], camera_pixel[1]);
-        printf("Ray Dir: [%.2f, %.2f]\n", game->camera.ray_dir[0], game->camera.ray_dir[1]);
+        // printf("Multiplicador: %.2f\n", multiplier);
+        // printf("Camere Pixel: [%.2f, %.2f]\n", camera_pixel[0], camera_pixel[1]);
+        // printf("Ray Dir: [%.2f, %.2f]\n", game->camera.ray_dir[0], game->camera.ray_dir[1]);
         ft_dda(game);
+        printf("game->img.hit: %d\n", game->img.hit);
         while (game->img.wall_line_start < game->img.wall_line_end)
         {
-            mlx_put_pixel(img, pixels, game->img.wall_line_start, 0xFFFF0000);
-            game->img.wall_line_start++;
+            if(game->img.hit_side == 0)
+            {
+                mlx_put_pixel(img, pixels, game->img.wall_line_start, 0xFF0000FF);
+                game->img.wall_line_start++;
+            }
+            else
+            {
+                mlx_put_pixel(img, pixels, game->img.wall_line_start, 0xB22222FF);
+                game->img.wall_line_start++;
+            }
         }
         pixels++;
     }
@@ -79,11 +88,9 @@ void ft_dda(t_game *game)
     float dist_side_y;
     float step_x;
     float step_y;
-    int hit;
     float dda_line_size_x;
     float dda_line_size_y;
     int wall_map_pos[2];
-    int hit_side;
     float perpendicular_dist;
     float wall_line_height;
 
@@ -92,10 +99,10 @@ void ft_dda(t_game *game)
     delta_disty = 0;
     step_x = 0;
     step_y = 0;
-    hit = 0;
+    game->img.hit = 0;
     dda_line_size_x = 0;
     dda_line_size_y = 0;
-    hit_side = -1;
+    game->img.hit_side = -1;
     perpendicular_dist = 0;
     
     if (game->camera.ray_dir[0] != 0)
@@ -139,27 +146,27 @@ void ft_dda(t_game *game)
     dda_line_size_y = dist_side_y;
     wall_map_pos[0] = game->player_info.square_pos[0];
     wall_map_pos[1] = game->player_info.square_pos[1];
-    while (hit == 0)
+    while (game->img.hit == 0)
     {
         if (dda_line_size_x < dda_line_size_y)
         {
             dda_line_size_x += delta_distx;
             wall_map_pos[0] += step_x;
-            hit_side = 0;
+            game->img.hit_side = 0;
         }
         else
         {
             dda_line_size_y += delta_disty;
             wall_map_pos[1] += step_y;
-            hit_side = 1;
+            game->img.hit_side = 1;
         }
         if(game->map.matrix[wall_map_pos[1]][wall_map_pos[0]] == '1')
-            hit = 1;
+            game->img.hit = 1;
     }
     printf("dist_side_x: %.2f\n", dist_side_x);
     printf("dist_side_y: %.2f\n", dist_side_y);
-    printf("hit_side: %d\n", hit_side);
-    if (hit_side == 0)
+    printf("hit_side: %d\n", game->img.hit_side);
+    if (game->img.hit_side == 0)
         perpendicular_dist = fabs((wall_map_pos[0] - game->player_info.vector_pos[0] + ((1 - step_x) / 2)) / game->camera.ray_dir[0]);
     else
         perpendicular_dist = fabs((wall_map_pos[1] - game->player_info.vector_pos[1] + ((1 - step_y) / 2)) / game->camera.ray_dir[1]);

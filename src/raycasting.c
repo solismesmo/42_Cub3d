@@ -6,36 +6,21 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/02/22 06:49:47 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/23 06:57:45 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    ft_init_player(t_game *game)
+void   ft_init_game(t_game *game)
 {
-    game->player_info.vector_pos[0] = 5;
-    game->player_info.vector_pos[1] = 7;
-    game->player_info.vector_dir[0] = 0;
-    game->player_info.vector_dir[1] = -1;
-    game->player_info.x = 5;
-    game->player_info.y = 2;
-    game->camera.plane[0] = 0.66;
-    game->camera.plane[1] = 0;
+    ft_init_player(game);
+    ft_init_image(game);
     ft_find_rays(game);
 }
 
-void ft_find_rays(t_game *game)
+void ft_init_image(t_game *game)
 {
-    int     pixels;
-    float   multiplier; 
-    float   camera_pixel[2];
-
-    pixels = 0;
-    multiplier = 0;
-    game->camera.ray_dir[0] = 0;
-    game->camera.ray_dir[1] = 0;
-    
     mlx_image_t* img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
     memset(img->pixels, 255, img->width * img->height * BPP);
     mlx_image_to_window(game->mlx, img, 0, 0);
@@ -51,6 +36,49 @@ void ft_find_rays(t_game *game)
 		}
 		y++;
 	}
+    game->img.image = img;
+}
+
+void    ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
+{
+        while (game->img.wall_line_start < game->img.wall_line_end)
+        {
+            if(game->img.hit_side == 0)
+            {
+                mlx_put_pixel(image, pixels, game->img.wall_line_start, 0xFF0000FF);
+                game->img.wall_line_start++;
+            }
+            else
+            {
+                mlx_put_pixel(image, pixels, game->img.wall_line_start, 0xB22222FF);
+                game->img.wall_line_start++;
+            }
+        }
+}
+
+void    ft_init_player(t_game *game)
+{
+    game->player_info.vector_pos[0] = 5;
+    game->player_info.vector_pos[1] = 7;
+    game->player_info.vector_dir[0] = 0;
+    game->player_info.vector_dir[1] = -1;
+    game->player_info.x = 5;
+    game->player_info.y = 2;
+    game->camera.plane[0] = 0.66;
+    game->camera.plane[1] = 0;
+    
+}
+
+void ft_find_rays(t_game *game)
+{
+    int     pixels;
+    float   multiplier; 
+    float   camera_pixel[2];
+
+    pixels = 0;
+    multiplier = 0;
+    game->camera.ray_dir[0] = 0;
+    game->camera.ray_dir[1] = 0;
     while (pixels <= WINDOW_WIDTH)
     {
         multiplier = 2.0f * ((float)pixels / (float)WINDOW_WIDTH) -1.0f;
@@ -58,25 +86,8 @@ void ft_find_rays(t_game *game)
         camera_pixel[1] = game->camera.plane[1] * multiplier;
         game->camera.ray_dir[0] = game->player_info.vector_dir[0] + camera_pixel[0];
         game->camera.ray_dir[1] = game->player_info.vector_dir[1] + camera_pixel[1];
-
-        // printf("Multiplicador: %.2f\n", multiplier);
-        // printf("Camere Pixel: [%.2f, %.2f]\n", camera_pixel[0], camera_pixel[1]);
-        // printf("Ray Dir: [%.2f, %.2f]\n", game->camera.ray_dir[0], game->camera.ray_dir[1]);
         ft_dda(game);
-        printf("game->img.hit: %d\n", game->img.hit);
-        while (game->img.wall_line_start < game->img.wall_line_end)
-        {
-            if(game->img.hit_side == 0)
-            {
-                mlx_put_pixel(img, pixels, game->img.wall_line_start, 0xFF0000FF);
-                game->img.wall_line_start++;
-            }
-            else
-            {
-                mlx_put_pixel(img, pixels, game->img.wall_line_start, 0xB22222FF);
-                game->img.wall_line_start++;
-            }
-        }
+        ft_draw_image(game, pixels, game->img.image);
         pixels++;
     }
 }
@@ -113,15 +124,8 @@ void ft_dda(t_game *game)
         delta_disty = fabs(1 / game->camera.ray_dir[1]);
     else
         delta_disty = INFINITY;
-    //delta_distx = fabs(1/game->camera.ray_dir[0]);
-    //delta_disty = fabs(1/game->camera.ray_dir[1]);
     game->player_info.square_pos[0] = (int)game->player_info.vector_pos[0];
     game->player_info.square_pos[1] = (int)game->player_info.vector_pos[1];
-
-    printf("Delta Dist X: %.2f\n", delta_distx);
-    printf("Delta Dist Y: %.2f\n", delta_disty);
-    printf("Map_square: [%d, %d]\n", game->player_info.square_pos[0], game->player_info.square_pos[1]);
-    
     if (game->camera.ray_dir[0] < 0)
     {
         dist_side_x = (game->player_info.vector_pos[0] - game->player_info.square_pos[0]) * delta_distx;
@@ -163,15 +167,10 @@ void ft_dda(t_game *game)
         if(game->map.matrix[wall_map_pos[1]][wall_map_pos[0]] == '1')
             game->img.hit = 1;
     }
-    printf("dist_side_x: %.2f\n", dist_side_x);
-    printf("dist_side_y: %.2f\n", dist_side_y);
-    printf("hit_side: %d\n", game->img.hit_side);
     if (game->img.hit_side == 0)
         perpendicular_dist = fabs((wall_map_pos[0] - game->player_info.vector_pos[0] + ((1 - step_x) / 2)) / game->camera.ray_dir[0]);
     else
         perpendicular_dist = fabs((wall_map_pos[1] - game->player_info.vector_pos[1] + ((1 - step_y) / 2)) / game->camera.ray_dir[1]);
-    printf("Perpendicular Dist: %.2f\n", perpendicular_dist);
-
     wall_line_height = (WINDOW_HEIGHT / perpendicular_dist);
     game->img.wall_line_start = WINDOW_HEIGHT / 2 - wall_line_height / 2;
     game->img.wall_line_end = WINDOW_HEIGHT / 2 + wall_line_height / 2;

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/12 02:04:45 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/23 06:44:45 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,22 +97,7 @@ int	main(int argc, char **argv)
 	ft_map_open(game);
 	ft_init_map(game);
 	ft_init_mlx(game);
-    // mlx_image_t* img = mlx_new_image(game->mlx, 320, 100);
-    // memset(img->pixels, 255, img->width * img->height * BPP);
-    // mlx_image_to_window(game->mlx, img, 0, 0);
-	// int x = 0;
-	// int y = 0;
-	// while (y < (WINDOW_HEIGHT)/2)
-	// {
-	// 	x = 0;
-	// 	while (x < WINDOW_WIDTH)
-	// 	{
-	// 		mlx_put_pixel(img, x, y, 0xCFD1F9FF);
-	// 		x++;
-	// 	}
-	// 	y++;
-	// }
-	ft_init_player(game);
+	ft_init_game(game);
 	mlx_loop(game->mlx);
 
 	//ft_image_init(game);

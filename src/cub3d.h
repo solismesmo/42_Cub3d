@@ -6,15 +6,12 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/22 06:46:59 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/23 06:56:23 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-
-# define WIDTH 64
-# define HEIGHT 64
 
 # define WINDOW_WIDTH 320
 # define WINDOW_HEIGHT 200
@@ -96,7 +93,7 @@ typedef struct s_mult
 
 typedef struct s_image
 {
-	mlx_image_t		*player;
+	mlx_image_t		*image;
 	mlx_image_t		*floor;
 	mlx_image_t		*wall;
 	mlx_image_t		*exit;
@@ -162,5 +159,8 @@ void	ft_init_map(t_game *game);
 void	ft_init_player(t_game *game);
 void	ft_find_rays(t_game *game);
 void	ft_dda(t_game *game);
+void	ft_init_game(t_game *game);
+void	ft_draw_image(t_game *game, int pixels, mlx_image_t *image);
+void	ft_init_image(t_game *game);
 
 #endif

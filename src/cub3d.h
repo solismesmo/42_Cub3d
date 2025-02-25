@@ -6,15 +6,15 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/24 21:33:21 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/24 22:48:07 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WINDOW_WIDTH 320
-# define WINDOW_HEIGHT 200
+# define WINDOW_WIDTH 1060
+# define WINDOW_HEIGHT 800
 
 #define BPP sizeof(int32_t)
 
@@ -165,6 +165,6 @@ void	ft_init_image(t_game *game);
 void	ft_rotate_player(t_game *game, double angle);
 void    ft_refresh_img(t_game *game);
 void	ft_move_player(t_game *game, double move_speed);
-int 	is_inside_map(t_game *game, int row, int col);
+
 
 #endif

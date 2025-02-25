@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/02/24 20:50:26 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/24 23:07:46 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ void ft_init_image(t_game *game)
 
 void    ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
 {
+	if (game->img.wall_line_start < 0)
+	{
+		game->img.wall_line_start = 0;
+	}
+	if (game->img.wall_line_end >= WINDOW_HEIGHT)
+	{
+		game->img.wall_line_end = WINDOW_HEIGHT - 1;
+	}
 		while (game->img.wall_line_start < game->img.wall_line_end)
 		{
 			if(game->img.hit_side == 0)

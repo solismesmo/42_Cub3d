@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_utils_II.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:48:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/02/26 00:15:46 by livieira         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:39:30 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,19 @@ void	ft_map_lego(t_game *game)
     game->player_info.found = 0;
 
     i = 0;
+    printf("Mapa carregado:\n");
+    for (int i = 0; game->map.matrix[i]; i++)
+    printf("%s\n", game->map.matrix[i]);
+
+    printf("\nProcurando jogador...\n");
+
+    if (!game->map.matrix)
+    {
+        printf("Error: game->map.matrix é NULL!\n");
+        exit(1);
+    }
+
+
     while (i < game->map.lines)
     {
         j = 0;
@@ -102,6 +115,7 @@ void	ft_map_lego(t_game *game)
             {
 				
 			}
+            printf("Pos [%d][%d]: %c\n", i, j, game->map.matrix[i][j]);
             if (game->map.matrix[i][j] == 'N' || game->map.matrix[i][j] == 'S'
                   || game->map.matrix[i][j] == 'E' || game->map.matrix[i][j] == 'W')
                 ft_increment_player(game, i, j, game->map.matrix[i][j]);

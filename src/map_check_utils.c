@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:44:25 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/02/25 23:27:05 by livieira         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:42:09 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_char_check(t_game *game)
 		i++;
 	}
 	game->map.rows = i;
+	printf("Chamando ft_split com map_full:\n%s\n", game->map.map_full);
 	game->map.matrix_fill = ft_split(game->map.map_full, '\n');
 	ft_last_line(game->map.matrix, game);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/26 00:02:58 by livieira         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:33:12 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,11 @@ void	ft_init_map(t_game *game)
 
 void	ft_init_map_matrix(t_game *game)
 {
+	printf("Chamando ft_map_lego...\n");
 	ft_map_lego(game);
+	printf("Saiu de ft_map_lego...\n");
+
+//	ft_map_lego(game);
 }
 
 void	ft_init_mlx(t_game *game)

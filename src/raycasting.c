@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/02/25 21:44:53 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/26 19:19:34 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,12 @@ void    ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
 
 unsigned int fix_color(unsigned int color)
 {
-    unsigned char t = ((unsigned char *)&color)[3];
-    unsigned char r = ((unsigned char *)&color)[2];
-    unsigned char g = ((unsigned char *)&color)[1];
-    unsigned char b = ((unsigned char *)&color)[0];
+    unsigned char t = ((unsigned char *)&color)[0];
+    unsigned char r = ((unsigned char *)&color)[1];
+    unsigned char g = ((unsigned char *)&color)[2];
+    unsigned char b = ((unsigned char *)&color)[3];
     
-    return (t << 24) | (r << 16) | (g << 8) | b;
+    return ((t << 24) | (r << 16) | (g << 8) | b);
 }
 
 

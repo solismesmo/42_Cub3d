@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:43:03 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/01/15 21:57:39 by livieira         ###   ########.fr       */
+/*   Updated: 2025/02/25 23:57:43 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ void	ft_check_args(int argc, char **argv)
 		ext_len = 4;
 	comp = ft_strncmp(map_ext, MAP_EXT_DEF, ext_len);
 	if (comp != 0)
-		ft_error_message("The file must to be a (.ber) file.\n");
+		ft_error_message("The file must to be a (.cub) file.\n");
 }

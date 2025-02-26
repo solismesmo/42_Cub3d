@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/25 21:45:23 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/25 23:42:30 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ typedef struct s_player
 	float			vector_dir[2];
 	int				x;
 	int				y;
+	int				found;
+	char			direction;
+	
 }	t_player;
 
 typedef struct s_camera
@@ -125,17 +128,19 @@ typedef struct s_game
 }					t_game;
 
 void	ft_check_args(int argc, char **argv);
+void	ft_check_walls(t_game *game);
+void	ft_increment_player(t_game *game, int i, int j, char dir);
 t_game	*ft_init_values(void);
 void	ft_map_open(t_game *game);
 int		ft_char_allowed(char c);
 void	ft_char_check(t_game *game);
 void	ft_map_condition(t_game *game);
-void	ft_mark_visited(t_game	*game, int row, int col);
-int		ft_dfs(t_game *game, int row, int col);
-void	ft_check_path(t_game *game);
+//void	ft_mark_visited(t_game	*game, int row, int col);
+//int		ft_dfs(t_game *game, int row, int col);
+//void	ft_check_path(t_game *game);
 void	ft_map_lego(t_game *game);
-void	ft_map_walls(t_game *game);
-void	ft_check_rectangle(t_game *game);
+//void	ft_map_walls(t_game *game);
+//void	ft_check_rectangle(t_game *game);
 void	ft_init_map_matrix(t_game *game);
 void	ft_error_message(char *message);
 void	ft_error(char *message, t_game *game);

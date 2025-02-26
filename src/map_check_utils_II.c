@@ -3,91 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_utils_II.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:48:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/01/16 20:57:45 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/26 00:15:46 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_map_lego(t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < game->map.lines)
-	{
-		j = 0;
-		while (game->map.matrix[i][j])
-		{
-			if (game->map.matrix[i][j] == 'E')
-				game->map.exits++;
-			if (game->map.matrix[i][j] == 'C')
-				game->map.coin++;
-			if (game->map.matrix[i][j] == '1')
-				game->map.walls++;
-			if (game->map.matrix[i][j] == 'P')
-				ft_increment(game, i, j);
-			j++;
-		}
-		i++;
-	}
-	ft_map_condition(game);
-	ft_char_check(game);
-	//ft_check_path(game);
-}
-
-void	ft_map_walls(t_game *game)
-{
-	int		len;
-	char	*temp;
-
-	game->map.lines++;
-	len = ft_strlen(game->map.line);
-	temp = game->map.line + (len - 2);
-	if (game->map.lines > 1)
-	{
-		if (*game->map.line != '1' || *temp != '1')
-			ft_error("Missing walls\n", game);
-	}
-	else
-	{
-		while (len > 1)
-		{	
-			if (*temp != '1')
-				ft_error("Missing walls\n", game);
-			else
-			{
-				len --;
-				temp--;
-			}
-		}
-	}
-}
-
-void	ft_check_rectangle(t_game *game)
-{
-	int		count_columns2;
-	char	*lastchar;
-
-	if (game->map.lines > 1)
-	{
-		count_columns2 = ft_strlen(game->map.line);
-		lastchar = ft_strchr(game->map.line, '\n');
-		if ((game->map.columns != count_columns2) && (lastchar != NULL))
-			ft_error("The map is not rectangular\n", game);
-		else if ((game->map.columns != count_columns2) && \
-		(lastchar == NULL) && ((game->map.columns - count_columns2) > 1))
-			ft_error("The map is not rectangular\n", game);
-		else if ((game->map.columns - 1) == game->map.lines)
-			ft_error("The map is shaped like a square, not a rectangle", game);
-	}
-	else
-		game->map.columns = ft_strlen(game->map.line);
-}
 
 void	ft_last_line(char **matrix, t_game	*game)
 {
@@ -100,6 +23,104 @@ void	ft_last_line(char **matrix, t_game	*game)
 			ft_error("Missing walls\n", game);
 		i++;
 	}
+}
+
+void	ft_increment_player(t_game *game, int i, int j, char dir)
+{
+    if (game->player_info.found)
+    {
+        printf("Error: more than one player!\n");
+        exit(1);
+    }
+    game->player_info.found = 1;
+    game->player_info.x = j;
+    game->player_info.y = i;
+    game->player_info.direction = dir;
+	
+	printf("Player found at (%d, %d) with direction %c\n", i, j, dir);  // Adicione essa linha para depuração
+}
+
+void	ft_check_walls(t_game *game)
+{
+    int	i, j;
+
+    j = 0;
+    while (game->map.matrix[0][j])
+    {
+        if (game->map.matrix[0][j] != '1' && game->map.matrix[0][j] != ' ')
+        {
+            printf("Error: open map in superior line.\n");
+            exit(1);
+        }
+        j++;
+    }
+    j = 0;
+    while (game->map.matrix[game->map.lines - 1][j])
+    {
+        if (game->map.matrix[game->map.lines - 1][j] != '1' && game->map.matrix[game->map.lines - 1][j] != ' ')
+        {
+            printf("Error: open map inferior line.\n");
+            exit(1);
+        }
+        j++;
+    }
+    i = 0;
+    while (i < game->map.lines)
+    {
+        if (game->map.matrix[i][0] != '1' && game->map.matrix[i][0] != ' ')
+        {
+            printf("Error: open map col L.\n");
+            exit(1);
+        }
+        if (game->map.matrix[i][game->map.columns - 1] != '1' && game->map.matrix[i][game->map.columns - 1] != ' ')
+        {
+            printf("Error: open map col R.\n");
+            exit(1);
+        }
+        i++;
+    }
+}
+
+
+void	ft_map_lego(t_game *game)
+{
+    int	i;
+    int	j;
+
+    game->map.walls = 0;
+    game->player_info.found = 0;
+
+    i = 0;
+    while (i < game->map.lines)
+    {
+        j = 0;
+        while (game->map.matrix[i][j])
+        {
+            if (game->map.matrix[i][j] == '1')
+                game->map.walls++;
+            if (game->map.matrix[i][j] == '0')
+            {
+				
+			}
+            if (game->map.matrix[i][j] == 'N' || game->map.matrix[i][j] == 'S'
+                  || game->map.matrix[i][j] == 'E' || game->map.matrix[i][j] == 'W')
+                ft_increment_player(game, i, j, game->map.matrix[i][j]);
+            else
+            {
+                printf("Error: invalid char: %c\n", game->map.matrix[i][j]);
+                exit(1);
+            }
+            j++;
+        }
+        i++;
+    }
+    if (!game->player_info.found)
+    {
+        printf("Error: no player!\n");
+        exit(1);
+    }
+    ft_check_walls(game);
+    ft_map_condition(game);
 }
 
 void	ft_init_moves(t_game *game)

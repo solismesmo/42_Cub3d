@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/24 20:40:43 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/25 20:43:32 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_game	*ft_init_values(void)
 	game->moves = 1;
 	game->map.p_col = 0;
 	game->map.p_row = 0;
-	game->img.wall = NULL;
 	ft_init_moves(game);
 	return (game);
 }
@@ -69,6 +68,7 @@ void	ft_init_map(t_game *game)
 	game->map.matrix = ft_split(game->map.map_full, '\n');
 	ft_init_map_matrix(game);
 }
+
 
 void	ft_init_map_matrix(t_game *game)
 {

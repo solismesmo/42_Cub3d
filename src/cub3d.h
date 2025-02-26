@@ -6,15 +6,18 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/24 22:48:07 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/25 21:45:23 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WINDOW_WIDTH 1060
-# define WINDOW_HEIGHT 800
+# define TEX_WIDTH 256
+# define TEX_HEIGHT 256
+
+# define WINDOW_WIDTH 800
+# define WINDOW_HEIGHT 600
 
 #define BPP sizeof(int32_t)
 
@@ -29,14 +32,14 @@
 # include "../includes/libft/libft.h"
 # include "../includes/lib/MLX42/include/MLX42/MLX42.h"
 
+# define SO "./src/textures/south_texture.png"
+# define NO "./src/textures/north_texture.png"
+# define WE "./src/textures/west_texture.png"
+# define EA "./src/textures/west_texture.png"
+
 # define MAP_EXT_DEF ".cub"
 
-// assets
-# define WALL_PNG "./src/images/wall.png"
-# define FLOOR_PNG "./src/images/grass.png"
-# define COIN_PNG "./src/images/coin.png"
-# define PLAYER_PNG "./src/images/player_knight.png"
-# define EXIT_PNG "./src/images/exit.png"
+
 
 typedef enum e_bool
 {
@@ -93,15 +96,16 @@ typedef struct s_mult
 
 typedef struct s_image
 {
+	mlx_image_t		*north;
 	mlx_image_t		*image;
-	mlx_image_t		*floor;
-	mlx_image_t		*wall;
-	mlx_image_t		*exit;
-	mlx_image_t		*coin;
+	mlx_image_t		*south;
+	mlx_image_t		*west;
+	mlx_image_t		*east;
 	int				hit;
 	int				hit_side;
 	float			wall_line_start;
 	float			wall_line_end;
+	float 			perpendicular_dist;
 }	t_image;
 
 typedef struct s_game
@@ -165,6 +169,10 @@ void	ft_init_image(t_game *game);
 void	ft_rotate_player(t_game *game, double angle);
 void    ft_refresh_img(t_game *game);
 void	ft_move_player(t_game *game, double move_speed);
+void	ft_init_textures(t_game *game);
+int		get_texture_pixel(t_game *game, int texX, int texY);
+unsigned int fix_color(unsigned int color);
+int create_trgb(int t, int r, int g, int b);
 
 
 #endif

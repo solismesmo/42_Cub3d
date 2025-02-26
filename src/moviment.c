@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 20:50:14 by bruno             #+#    #+#             */
-/*   Updated: 2025/02/24 21:37:21 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/25 18:34:11 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	ft_keyhooks(mlx_key_data_t keydata, void *param)
 	game = (t_game *)param;
 	if ((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
 		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-		ft_move_player(game, 0.1);
+		ft_move_player(game, 0.2);
 	if ((keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)
 		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-		ft_move_player(game, -0.1);
+		ft_move_player(game, -0.2);
 	if ((keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_D)
 		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 		ft_rotate_player(game, 0.05);

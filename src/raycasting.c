@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/02/24 23:07:46 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/25 21:44:53 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,26 @@
 void   ft_init_game(t_game *game)
 {
 	ft_init_player(game);
+	ft_init_textures(game);
 	ft_init_image(game);
 	ft_find_rays(game);
+}
+
+void	ft_init_textures(t_game *game)
+{
+	ft_place_png(game, &game->img.north, NO);
+	ft_place_png(game, &game->img.south, SO);
+	ft_place_png(game, &game->img.west, WE);
+	ft_place_png(game, &game->img.east, EA);
+}
+
+void	ft_place_png(t_game *game, mlx_image_t **image, char *path)
+{
+	mlx_texture_t	*my_texture;
+
+	my_texture = mlx_load_png(path);
+	*image = mlx_texture_to_image(game->mlx, my_texture);
+	mlx_delete_texture(my_texture);
 }
 
 void ft_init_image(t_game *game)
@@ -39,6 +57,31 @@ void ft_init_image(t_game *game)
 	game->img.image = img;
 }
 
+// void    ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
+// {
+// 	if (game->img.wall_line_start < 0)
+// 	{
+// 		game->img.wall_line_start = 0;
+// 	}
+// 	if (game->img.wall_line_end >= WINDOW_HEIGHT)
+// 	{
+// 		game->img.wall_line_end = WINDOW_HEIGHT - 1;
+// 	}
+// 		while (game->img.wall_line_start < game->img.wall_line_end)
+// 		{
+// 			if(game->img.hit_side == 0)
+// 			{
+// 				mlx_put_pixel(image, pixels, game->img.wall_line_start, 0xFF0000FF);
+// 				game->img.wall_line_start++;
+// 			}
+// 			else
+// 			{
+// 				mlx_put_pixel(image, pixels, game->img.wall_line_start, 0xB22222FF);
+// 				game->img.wall_line_start++;
+// 			}
+// 		}
+// }
+
 void    ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
 {
 	if (game->img.wall_line_start < 0)
@@ -49,19 +92,83 @@ void    ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
 	{
 		game->img.wall_line_end = WINDOW_HEIGHT - 1;
 	}
-		while (game->img.wall_line_start < game->img.wall_line_end)
-		{
-			if(game->img.hit_side == 0)
-			{
-				mlx_put_pixel(image, pixels, game->img.wall_line_start, 0xFF0000FF);
-				game->img.wall_line_start++;
-			}
-			else
-			{
-				mlx_put_pixel(image, pixels, game->img.wall_line_start, 0xB22222FF);
-				game->img.wall_line_start++;
-			}
-		}
+	int drawStart = game->img.wall_line_start;
+    int drawEnd = game->img.wall_line_end;
+    int lineHeight = drawEnd - drawStart;
+
+    // Calcula wallX, que indica a posição exata de impacto na parede (valor entre 0 e 1)
+    double wallX;
+    if (game->img.hit_side == 0)
+        wallX = game->player_info.vector_pos[1] + game->img.perpendicular_dist * game->camera.ray_dir[1];
+    else
+        wallX = game->player_info.vector_pos[0] + game->img.perpendicular_dist * game->camera.ray_dir[0];
+    wallX -= floor(wallX);
+
+    // Converte wallX para a coordenada X da textura
+    int texX = (int)(wallX * (double)TEX_WIDTH);
+    // Inverte a coordenada se necessário (dependendo da direção do raio)
+    if (game->img.hit_side == 0 && game->camera.ray_dir[0] > 0)
+        texX = TEX_WIDTH - texX - 1;
+    if (game->img.hit_side == 1 && game->camera.ray_dir[1] < 0)
+        texX = TEX_WIDTH - texX - 1;
+
+    // Calcula o quanto a textura deve avançar a cada pixel da parede desenhada
+    double step = (double)TEX_HEIGHT / lineHeight;
+    // Ajusta a posição inicial na textura
+    // Aqui, usamos (WINDOW_HEIGHT / 2 - lineHeight / 2) como referência para o topo da parede desenhada
+    double texPos = (drawStart - (WINDOW_HEIGHT / 2 - lineHeight / 2)) * step;
+
+    // Para cada pixel na coluna, mapeia a posição correspondente da textura e desenha o pixel
+    for (int y = drawStart; y < drawEnd; y++)
+    {
+        int texY = (int)texPos & (TEX_HEIGHT - 1);
+        texPos += step;
+        int color = get_texture_pixel(game, texX, texY);
+        mlx_put_pixel(image, pixels, y, color);
+    }
+}
+
+
+unsigned int fix_color(unsigned int color)
+{
+    unsigned char t = ((unsigned char *)&color)[3];
+    unsigned char r = ((unsigned char *)&color)[2];
+    unsigned char g = ((unsigned char *)&color)[1];
+    unsigned char b = ((unsigned char *)&color)[0];
+    
+    return (t << 24) | (r << 16) | (g << 8) | b;
+}
+
+
+int get_texture_pixel(t_game *game, int texX, int texY)
+{
+    mlx_image_t *tex;
+
+    // Seleciona a "imagem-textura" correta com base na direção da colisão:
+    if (game->img.hit_side == 0)
+    {
+        if (game->camera.ray_dir[0] > 0)
+            tex = game->img.east;
+        else
+            tex = game->img.west;
+    }
+    else
+    {
+        if (game->camera.ray_dir[1] > 0)
+            tex = game->img.south;
+        else
+            tex = game->img.north;
+    }
+
+    if (!tex || !tex->pixels)
+        return 0; // ou uma cor padrão
+
+    int index = texY * TEX_WIDTH + texX;
+    int *pixels = (int *)tex->pixels;
+    int color = pixels[index];
+
+    // Corrige a ordem dos canais, se necessário
+    return fix_color(color);
 }
 
 void    ft_init_player(t_game *game)
@@ -110,7 +217,6 @@ void ft_dda(t_game *game)
 	float dda_line_size_x;
 	float dda_line_size_y;
 	int wall_map_pos[2];
-	float perpendicular_dist;
 	float wall_line_height;
 
 	wall_line_height= 0;
@@ -122,7 +228,7 @@ void ft_dda(t_game *game)
 	dda_line_size_x = 0;
 	dda_line_size_y = 0;
 	game->img.hit_side = -1;
-	perpendicular_dist = 0;
+	game->img.perpendicular_dist = 0;
 	
 	if (game->camera.ray_dir[0] != 0)
 		delta_distx = fabs(1 / game->camera.ray_dir[0]);
@@ -176,10 +282,10 @@ void ft_dda(t_game *game)
 			game->img.hit = 1;
 	}
 	if (game->img.hit_side == 0)
-		perpendicular_dist = fabs((wall_map_pos[0] - game->player_info.vector_pos[0] + ((1 - step_x) / 2)) / game->camera.ray_dir[0]);
+		game->img.perpendicular_dist = fabs((wall_map_pos[0] - game->player_info.vector_pos[0] + ((1 - step_x) / 2)) / game->camera.ray_dir[0]);
 	else
-		perpendicular_dist = fabs((wall_map_pos[1] - game->player_info.vector_pos[1] + ((1 - step_y) / 2)) / game->camera.ray_dir[1]);
-	wall_line_height = (WINDOW_HEIGHT / perpendicular_dist);
+		game->img.perpendicular_dist = fabs((wall_map_pos[1] - game->player_info.vector_pos[1] + ((1 - step_y) / 2)) / game->camera.ray_dir[1]);
+	wall_line_height = (WINDOW_HEIGHT / game->img.perpendicular_dist);
 	game->img.wall_line_start = WINDOW_HEIGHT / 2 - wall_line_height / 2;
 	game->img.wall_line_end = WINDOW_HEIGHT / 2 + wall_line_height / 2;
 }

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/25 21:45:23 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/27 21:32:04 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define SO "./src/textures/south_texture.png"
 # define NO "./src/textures/north_texture.png"
 # define WE "./src/textures/west_texture.png"
-# define EA "./src/textures/west_texture.png"
+# define EA "./src/textures/east_texture.png"
 
 # define MAP_EXT_DEF ".cub"
 

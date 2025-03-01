@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/02/28 23:48:38 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/01 00:28:59 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,12 +148,12 @@ int get_texture_pixel(t_game *game, int texX, int texY)
 
 void    ft_init_player(t_game *game)
 {
-	game->player_info.vector_pos[0] = game->map.p_row;
-	game->player_info.vector_pos[1] = game->map.p_col;
+	game->player_info.vector_pos[0] = game->map.p_col;
+	game->player_info.vector_pos[1] = game->map.p_row;
 	game->player_info.vector_dir[0] = -1;
 	game->player_info.vector_dir[1] = 0;
-	game->player_info.x = game->map.p_row;
-	game->player_info.y = game->map.p_col;
+	game->player_info.x = game->map.p_col;
+	game->player_info.y = game->map.p_row;
 	game->camera.plane[0] = 0;
 	game->camera.plane[1] = -0.66;
 }

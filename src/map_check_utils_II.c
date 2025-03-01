@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_utils_II.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:48:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/02/26 19:39:30 by livieira         ###   ########.fr       */
+/*   Updated: 2025/02/28 21:26:52 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,55 +84,26 @@ void	ft_check_walls(t_game *game)
 
 void	ft_map_lego(t_game *game)
 {
-    int	i;
-    int	j;
+	int	i;
+	int	j;
 
-    game->map.walls = 0;
-    game->player_info.found = 0;
-
-    i = 0;
-    printf("Mapa carregado:\n");
-    for (int i = 0; game->map.matrix[i]; i++)
-    printf("%s\n", game->map.matrix[i]);
-
-    printf("\nProcurando jogador...\n");
-
-    if (!game->map.matrix)
-    {
-        printf("Error: game->map.matrix é NULL!\n");
-        exit(1);
-    }
-
-
-    while (i < game->map.lines)
-    {
-        j = 0;
-        while (game->map.matrix[i][j])
-        {
-            if (game->map.matrix[i][j] == '1')
-                game->map.walls++;
-            if (game->map.matrix[i][j] == '0')
+	i = 0;
+	while (i < game->map.lines)
+	{
+		j = 0;
+		while (game->map.matrix[i][j])
+		{
+			if (game->map.matrix[i][j] == 'P' || game->map.matrix[i][j] == 'N' || \
+            game->map.matrix[i][j] == 'S' || game->map.matrix[i][j] == 'W')
             {
-				
-			}
-            printf("Pos [%d][%d]: %c\n", i, j, game->map.matrix[i][j]);
-            if (game->map.matrix[i][j] == 'N' || game->map.matrix[i][j] == 'S'
-                  || game->map.matrix[i][j] == 'E' || game->map.matrix[i][j] == 'W')
-                ft_increment_player(game, i, j, game->map.matrix[i][j]);
-            else
-            {
-                printf("Error: invalid char: %c\n", game->map.matrix[i][j]);
-                exit(1);
+                game->map.player++;
+	            game->map.p_row = i;
+	            game->map.p_col = j;
             }
-            j++;
-        }
-        i++;
-    }
-    if (!game->player_info.found)
-    {
-        printf("Error: no player!\n");
-        exit(1);
-    }
+			j++;
+		}
+		i++;
+	}
     ft_check_walls(game);
     ft_map_condition(game);
 }

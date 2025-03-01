@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/02/26 19:23:09 by livieira         ###   ########.fr       */
+/*   Updated: 2025/02/28 23:34:39 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,31 +56,6 @@ void ft_init_image(t_game *game)
 	}
 	game->img.image = img;
 }
-
-// void    ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
-// {
-// 	if (game->img.wall_line_start < 0)
-// 	{
-// 		game->img.wall_line_start = 0;
-// 	}
-// 	if (game->img.wall_line_end >= WINDOW_HEIGHT)
-// 	{
-// 		game->img.wall_line_end = WINDOW_HEIGHT - 1;
-// 	}
-// 		while (game->img.wall_line_start < game->img.wall_line_end)
-// 		{
-// 			if(game->img.hit_side == 0)
-// 			{
-// 				mlx_put_pixel(image, pixels, game->img.wall_line_start, 0xFF0000FF);
-// 				game->img.wall_line_start++;
-// 			}
-// 			else
-// 			{
-// 				mlx_put_pixel(image, pixels, game->img.wall_line_start, 0xB22222FF);
-// 				game->img.wall_line_start++;
-// 			}
-// 		}
-// }
 
 void    ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
 {
@@ -136,7 +111,7 @@ unsigned int fix_color(unsigned int color)
     unsigned char g = ((unsigned char *)&color)[2];
     unsigned char b = ((unsigned char *)&color)[3];
     
-    return (t << 24) | (r << 16) | (g << 8) | b;
+    return ((t << 24) | (r << 16) | (g << 8) | b);
 }
 
 
@@ -173,16 +148,40 @@ int get_texture_pixel(t_game *game, int texX, int texY)
 
 void    ft_init_player(t_game *game)
 {
-	game->player_info.vector_pos[0] = 5;
-	game->player_info.vector_pos[1] = 7;
-	game->player_info.vector_dir[0] = 0;
-	game->player_info.vector_dir[1] = -1;
+	game->player_info.vector_pos[0] = game->map.p_row;
+	game->player_info.vector_pos[1] = game->map.p_col;
+	game->player_info.vector_dir[0] = -1;
+	game->player_info.vector_dir[1] = 0;
 	game->player_info.x = 5;
 	game->player_info.y = 2;
-	game->camera.plane[0] = 0.66;
-	game->camera.plane[1] = 0;
-	
+	game->camera.plane[0] = 0;
+	game->camera.plane[1] = -0.66;
 }
+
+// Para 'N' (Norte):
+// Já está definido como:
+
+// vector_dir = (0, -1)
+// camera.plane = (0.66, 0)
+// (Isso está correto)
+// Para 'S' (Sul):
+// Uma configuração comum é:
+
+// vector_dir = (0, 1)
+// camera.plane = (-0.66, 0)
+// Se os comandos de seta estão invertidos, pode ser necessário ajustar o sinal do vetor do plano ou tratar a rotação de forma consistente com essa configuração.
+// Para 'E' (Leste):
+// Uma configuração adequada seria:
+
+// vector_dir = (1, 0)
+// camera.plane = (0, 0.66)
+// (Observe que o vetor do plano é perpendicular a (1, 0).)
+// Para 'W' (Oeste):
+// Configure como:
+
+// vector_dir = (-1, 0)
+// camera.plane = (0, -0.66)
+// (Aqui também, o vetor do plano precisa ser perpendicular a (-1, 0).)
 
 void ft_find_rays(t_game *game)
 {

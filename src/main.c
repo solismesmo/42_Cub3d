@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/26 19:33:12 by livieira         ###   ########.fr       */
+/*   Updated: 2025/02/28 23:47:01 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_init_map(t_game *game)
 		else
 			game->map.map_full = ft_strdup(game->map.line);
 		//ft_check_walls(game);
+		ft_map_walls(game);
 		free(game->map.line);
 	}
 	if (game->map.map_full == NULL)

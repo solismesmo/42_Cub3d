@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_utils_II.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:48:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/02/28 21:42:31 by bruno            ###   ########.fr       */
+/*   Updated: 2025/02/28 23:47:02 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	ft_map_walls(t_game *game)
 			}
 		}
 	}
+	game->map.columns = ft_strlen(game->map.line);
 }
 
 void	ft_map_lego(t_game *game)
@@ -100,7 +101,6 @@ void	ft_map_lego(t_game *game)
 	int	j;
 
 	i = 0;
-    ft_map_walls(game);
 	while (i < game->map.lines)
 	{
 		j = 0;

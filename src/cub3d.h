@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/25 23:42:30 by livieira         ###   ########.fr       */
+/*   Updated: 2025/02/28 23:47:01 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	ft_map_condition(t_game *game);
 //int		ft_dfs(t_game *game, int row, int col);
 //void	ft_check_path(t_game *game);
 void	ft_map_lego(t_game *game);
-//void	ft_map_walls(t_game *game);
+void	ft_map_walls(t_game *game);
 //void	ft_check_rectangle(t_game *game);
 void	ft_init_map_matrix(t_game *game);
 void	ft_error_message(char *message);

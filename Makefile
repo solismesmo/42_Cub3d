@@ -14,7 +14,7 @@ SOURCE_BONUS_PATH = src_bonus/
 LIBFT_PATH = ./includes/libft/
 LIBFT = ./includes/libft/libft.a
 
-SRCS	:= main.c map_check_utils.c map_check_utils_II.c map_check_utils_III.c \
+SRCS	:= main.c map_check_utils.c map_check_utils_II.c \
 			open_close_args.c free_error.c raycasting.c moviment.c
 
 

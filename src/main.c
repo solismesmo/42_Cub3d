@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/03 12:49:46 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/03 15:32:51 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,67 @@ t_game	*ft_init_values(void)
 	return (game);
 }
 
+int	ft_is_header_line(char *line)
+{
+	while (*line == ' ' || *line == '\t')
+		line++;
+	if (*line == '\0')
+		return (0);
+	if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) ||
+	    !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2) ||
+	    !ft_strncmp(line, "F", 1)  || !ft_strncmp(line, "C", 1))
+		return (1);
+	return (0);
+}
+
+
 void	ft_init_map(t_game *game)
 {
-	char	*temp;
+	//char	*line;
+	char	*tmp;
+	char	*map_full;
 
-	while (game->map.line != NULL || game->map.lines == 0)
+	map_full = NULL;
+	// Lê a primeira linha fora do while
+	game->map.line = get_next_line(game->fd);
+	while (game->map.line != NULL)
 	{
-		game->map.line = get_next_line(game->fd);
-		if (game->map.line == NULL)
-			break ;
-		if (*game->map.line == '\n')
-			ft_error("Error, empty line!\n", game);
-		if (game->map.map_full != NULL)
+		// Processa as linhas do cabeçalho
+		if (ft_is_header_line(game->map.line))
 		{
-			temp = game->map.map_full;
-			game->map.map_full = ft_strjoin(temp, game->map.line);
-			free(temp);
+			// Armazene as informações do cabeçalho conforme necessário
+			// Por exemplo, parse_texture(line) ou parse_color(line)
+			free(game->map.line);
+		}
+		else if (ft_strlen(game->map.line) > 1)
+		{
+			// Chegou na parte do mapa, inicia a string do mapa
+			map_full = ft_strdup(game->map.line);
+			ft_map_walls(game);
+			free(game->map.line);
+			break ;
 		}
 		else
-			game->map.map_full = ft_strdup(game->map.line);
-		ft_map_walls(game);
-		free(game->map.line);
+		{
+			free(game->map.line);
+		}
+		// Atribuição fora do while
+		game->map.line = get_next_line(game->fd);
 	}
-	if (game->map.map_full == NULL)
+	// Continua juntando as linhas restantes do mapa
+	game->map.line = get_next_line(game->fd);
+	while (game->map.line != NULL)
+	{
+		ft_map_walls(game);
+		tmp = map_full;
+		map_full = ft_strjoin(map_full, game->map.line);
+		free(tmp);
+		free(game->map.line);
+		game->map.line = get_next_line(game->fd);
+	}
+	if (!map_full)
 		ft_error("Error, empty map!\n", game);
+	game->map.map_full = map_full;
 	game->map.matrix = ft_split(game->map.map_full, '\n');
 	ft_init_map_matrix(game);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_utils_II.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:48:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/02/28 23:55:45 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:54:35 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,23 @@ void	ft_map_walls(t_game *game)
 {
 	int		len;
 	char	*temp;
+	char *line;
 
+	line = game->map.line;
 	game->map.lines++;
-	len = ft_strlen(game->map.line);
-	temp = game->map.line + (len - 2);
+	while(*line == ' ')
+		line++;
+	ft_printf("game->map.line: %s\n", game->map.line);
+	len = ft_strlen(line);
+	temp = line + (len - 2);
+	while (*temp == ' ')
+	{
+		temp--;
+		len--;
+	}
 	if (game->map.lines > 1)
 	{
-		if (*game->map.line != '1' || *temp != '1')
+		if (*line != '1' || *temp != '1')
 			ft_error("Missing walls\n", game);
 	}
 	else
@@ -92,7 +102,7 @@ void	ft_map_walls(t_game *game)
 			}
 		}
 	}
-	game->map.columns = ft_strlen(game->map.line);
+	game->map.columns = ft_strlen(line);
 }
 
 void	ft_map_lego(t_game *game)
@@ -117,7 +127,7 @@ void	ft_map_lego(t_game *game)
 		}
 		i++;
 	}
-    ft_check_walls(game);
+    //ft_check_walls(game);
     ft_map_condition(game);
 }
 

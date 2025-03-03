@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/03 12:48:47 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/03 14:22:04 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,10 @@ typedef struct s_image
 	mlx_image_t		*west;
 	mlx_image_t		*east;
 	int				hit;
+	char			*path_north;
+	char			*path_south;
+	char			*path_west;
+	char			*path_east;
 	int				hit_side;
 	double			wall_line_start;
 	double			wall_line_end;
@@ -162,5 +166,7 @@ void			ft_move_player(t_game *game, double move_speed);
 void			ft_init_textures(t_game *game);
 int				get_texture_pixel(t_game *game, int texX, int texY);
 unsigned int 	fix_color(unsigned int color);
+int				ft_is_header_line(char *line);
+void			ft_check_map_information(t_game *game);
 
 #endif

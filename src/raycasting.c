@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/03 12:05:39 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/03 16:27:08 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,6 +292,8 @@ void ft_dda(t_game *game)
 			wall_map_pos[1] += step_y;
 			game->img.hit_side = 1;
 		}
+		//printf("wall_map_pos[0]: %d\n", wall_map_pos[0]);
+		//printf("wall_map_pos[1]: %d\n", wall_map_pos[1]);
 		if (game->map.matrix[wall_map_pos[1]][wall_map_pos[0]] == '1')
 			game->img.hit = 1;
 	}

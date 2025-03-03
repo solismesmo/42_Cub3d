@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:48:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/03/03 15:54:35 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/03 16:02:12 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	ft_map_walls(t_game *game)
 	game->map.lines++;
 	while(*line == ' ')
 		line++;
-	ft_printf("game->map.line: %s\n", game->map.line);
 	len = ft_strlen(line);
 	temp = line + (len - 2);
 	while (*temp == ' ')

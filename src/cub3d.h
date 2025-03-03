@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/03 11:54:25 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/03 12:48:47 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define TEX_WIDTH 256
 # define TEX_HEIGHT 256
 
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
+# define WINDOW_WIDTH 1020
+# define WINDOW_HEIGHT 800
 
 #define BPP sizeof(int32_t)
 
@@ -127,56 +127,40 @@ typedef struct s_game
 
 }					t_game;
 
-void	ft_check_args(int argc, char **argv);
-void	ft_check_walls(t_game *game);
-void	ft_increment_player(t_game *game, int i, int j, char dir);
-t_game	*ft_init_values(void);
-void	ft_map_open(t_game *game);
-int		ft_char_allowed(char c);
-void	ft_char_check(t_game *game);
-void	ft_map_condition(t_game *game);
-//void	ft_mark_visited(t_game	*game, int row, int col);
-//int		ft_dfs(t_game *game, int row, int col);
-//void	ft_check_path(t_game *game);
-void	ft_map_lego(t_game *game);
-void	ft_map_walls(t_game *game);
-//void	ft_check_rectangle(t_game *game);
-void	ft_init_map_matrix(t_game *game);
-void	ft_error_message(char *message);
-void	ft_error(char *message, t_game *game);
-int		ft_map_close(int fd);
-void	ft_finish(char *message, t_game *game);
-void	ft_free_map(char **matriz);
-void	ft_error_temp(char *message, t_game *game, char **temp);
-void	ft_place_png(t_game *game, mlx_image_t **image, char *path);
-void	ft_init_mlx(t_game *game);
-void	ft_keyhooks(mlx_key_data_t keydata, void *param);
-void	ft_floor(t_game *game);
-void	ft_place_png(t_game *game, mlx_image_t **image, char *path);
-void	ft_image_init(t_game *game);
-void	ft_render_map(t_game *game);
-void	ft_last_line(char **matrix, t_game	*game);
-void	ft_movement(t_game *game, int x, int y);
-t_bool	ft_verify_walls(t_game *game, int x, int y);
-void	ft_render_coin(t_game *game, int x, int y, int *count);
-void	ft_collect_item(t_game *game, int x, int y);
-void	ft_exit_game(t_game *game, int x, int y);
-void	ft_delete_image(t_game *game);
-void	ft_init_moves(t_game *game);
-void	ft_increment(t_game *game, int i, int j);
-void	ft_init_map(t_game *game);
-void	ft_init_player(t_game *game);
-void	ft_find_rays(t_game *game);
-void	ft_dda(t_game *game);
-void	ft_init_game(t_game *game);
-void	ft_draw_image(t_game *game, int pixels, mlx_image_t *image);
-void	ft_init_image(t_game *game);
-void	ft_rotate_player(t_game *game, double angle);
-void    ft_refresh_img(t_game *game);
-void	ft_move_player(t_game *game, double move_speed);
-void	ft_init_textures(t_game *game);
-int		get_texture_pixel(t_game *game, int texX, int texY);
-unsigned int fix_color(unsigned int color);
-int create_trgb(int t, int r, int g, int b);
+void			ft_check_args(int argc, char **argv);
+void			ft_check_walls(t_game *game);
+t_game			*ft_init_values(void);
+void			ft_map_open(t_game *game);
+int				ft_char_allowed(char c);
+void			ft_char_check(t_game *game);
+void			ft_map_condition(t_game *game);
+void			ft_map_lego(t_game *game);
+void			ft_map_walls(t_game *game);
+void			ft_init_map_matrix(t_game *game);
+void			ft_error_message(char *message);
+void			ft_error(char *message, t_game *game);
+int				ft_map_close(int fd);
+void			ft_finish(char *message, t_game *game);
+void			ft_free_map(char **matriz);
+void			ft_error_temp(char *message, t_game *game, char **temp);
+void			ft_place_png(t_game *game, mlx_image_t **image, char *path);
+void			ft_init_mlx(t_game *game);
+void			ft_keyhooks(mlx_key_data_t keydata, void *param);
+void			ft_place_png(t_game *game, mlx_image_t **image, char *path);
+void			ft_last_line(char **matrix, t_game	*game);
+void			ft_init_moves(t_game *game);
+void			ft_init_map(t_game *game);
+void			ft_init_player(t_game *game);
+void			ft_find_rays(t_game *game);
+void			ft_dda(t_game *game);
+void			ft_init_game(t_game *game);
+void			ft_draw_image(t_game *game, int pixels, mlx_image_t *image);
+void			ft_init_image(t_game *game);
+void			ft_rotate_player(t_game *game, double angle);
+void    		ft_refresh_img(t_game *game);
+void			ft_move_player(t_game *game, double move_speed);
+void			ft_init_textures(t_game *game);
+int				get_texture_pixel(t_game *game, int texX, int texY);
+unsigned int 	fix_color(unsigned int color);
 
 #endif

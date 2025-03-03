@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/03 08:28:20 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/03 12:49:46 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_init_map(t_game *game)
 		}
 		else
 			game->map.map_full = ft_strdup(game->map.line);
-		//ft_check_walls(game);
 		ft_map_walls(game);
 		free(game->map.line);
 	}

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/03 11:51:29 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/03 12:05:39 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,8 @@ int get_texture_pixel(t_game *game, int texX, int texY)
 
 void    ft_init_player(t_game *game)
 {
-	game->player_info.vector_pos[0] = game->map.p_col;
-	game->player_info.vector_pos[1] = game->map.p_row;
+	game->player_info.vector_pos[0] = game->map.p_col + 0.5;
+	game->player_info.vector_pos[1] = game->map.p_row + 0.5;
 	game->player_info.vector_dir[0] = -1;
 	game->player_info.vector_dir[1] = 0;
 	game->player_info.x = game->map.p_col;

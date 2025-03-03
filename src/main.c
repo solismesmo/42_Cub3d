@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/28 23:55:46 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/03 08:28:20 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,7 @@ void	ft_init_map(t_game *game)
 
 void	ft_init_map_matrix(t_game *game)
 {
-	printf("Chamando ft_map_lego...\n");
 	ft_map_lego(game);
-	printf("Saiu de ft_map_lego...\n");
-
-//	ft_map_lego(game);
 }
 
 void	ft_init_mlx(t_game *game)
@@ -104,9 +100,6 @@ int	main(int argc, char **argv)
 	ft_init_game(game);
 	mlx_key_hook(game->mlx, &ft_keyhooks, game);
 	mlx_loop(game->mlx);
-
-	//ft_image_init(game);
-	
-	//ft_finish("Thanks for playing", game);
+	ft_finish("Thanks for playing", game);
 	return (0);
 }

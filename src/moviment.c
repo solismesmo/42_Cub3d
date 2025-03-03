@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 20:50:14 by bruno             #+#    #+#             */
-/*   Updated: 2025/02/25 18:34:11 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/03 08:15:22 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	ft_keyhooks(mlx_key_data_t keydata, void *param)
 	if ((keydata.key == MLX_KEY_LEFT || keydata.key == MLX_KEY_A)
 		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 		ft_rotate_player(game, -0.05);
-	// if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	// {
-	// 	ft_finish("see you soon", game);
-	// }
+	 if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	 {
+	 	ft_finish("see you soon", game);
+	 }
 }
 
 void	ft_refresh_img(t_game *game)

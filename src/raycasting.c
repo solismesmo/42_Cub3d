@@ -6,13 +6,13 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/01 00:28:59 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/03 11:51:29 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void   ft_init_game(t_game *game)
+void	ft_init_game(t_game *game)
 {
 	ft_init_player(game);
 	ft_init_textures(game);
@@ -44,7 +44,7 @@ void ft_init_image(t_game *game)
 	mlx_image_to_window(game->mlx, img, 0, 0);
 	int x = 0;
 	int y = 0;
-	while (y < (WINDOW_HEIGHT)/2)
+	while (y < (WINDOW_HEIGHT) / 2)
 	{
 		x = 0;
 		while (x < WINDOW_WIDTH)
@@ -57,48 +57,84 @@ void ft_init_image(t_game *game)
 	game->img.image = img;
 }
 
-void    ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
+void ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
 {
-	if (game->img.wall_line_start < 0)
-	{
-		game->img.wall_line_start = 0;
-	}
-	if (game->img.wall_line_end >= WINDOW_HEIGHT)
-	{
-		game->img.wall_line_end = WINDOW_HEIGHT - 1;
-	}
-	int drawStart = game->img.wall_line_start;
-    int drawEnd = game->img.wall_line_end;
+    // Convertemos os valores double que você calculou na DDA
+    // para variáveis locais, facilitando a leitura.
+    double wallLineStart = game->img.wall_line_start;
+    double wallLineEnd   = game->img.wall_line_end;
+
+    // Convertemos para int para usar no loop de desenho.
+    int drawStart = (int)floor(wallLineStart);
+    int drawEnd   = (int)floor(wallLineEnd);
+
+    // Calcula a altura (quantos pixels serão desenhados na tela).
     int lineHeight = drawEnd - drawStart;
 
-    // Calcula wallX, que indica a posição exata de impacto na parede (valor entre 0 e 1)
+    // Se lineHeight for 0 ou negativo, não há o que desenhar.
+    if (lineHeight <= 0)
+        return;
+
+    // ------------------------------------------------------------
+    // 1) Cálculo de wallX para descobrir em qual coluna da textura
+    //    iremos começar (valor de 0 a 1 dentro da célula).
+    // ------------------------------------------------------------
     double wallX;
     if (game->img.hit_side == 0)
         wallX = game->player_info.vector_pos[1] + game->img.perpendicular_dist * game->camera.ray_dir[1];
     else
         wallX = game->player_info.vector_pos[0] + game->img.perpendicular_dist * game->camera.ray_dir[0];
+
+    // wallX fica no intervalo [0,1); remove a parte inteira
     wallX -= floor(wallX);
 
-    // Converte wallX para a coordenada X da textura
+    // Converte wallX em coordenada X da textura (0 a TEX_WIDTH - 1)
     int texX = (int)(wallX * (double)TEX_WIDTH);
-    // Inverte a coordenada se necessário (dependendo da direção do raio)
+
+    // Inverte a coordenada X caso o raio esteja vindo “de trás”
     if (game->img.hit_side == 0 && game->camera.ray_dir[0] > 0)
         texX = TEX_WIDTH - texX - 1;
     if (game->img.hit_side == 1 && game->camera.ray_dir[1] < 0)
         texX = TEX_WIDTH - texX - 1;
 
-    // Calcula o quanto a textura deve avançar a cada pixel da parede desenhada
-    double step = (double)TEX_HEIGHT / lineHeight;
-    // Ajusta a posição inicial na textura
-    // Aqui, usamos (WINDOW_HEIGHT / 2 - lineHeight / 2) como referência para o topo da parede desenhada
-    double texPos = (drawStart - (WINDOW_HEIGHT / 2 - lineHeight / 2)) * step;
+    // ------------------------------------------------------------
+    // 2) Cálculo do step e posição inicial na textura (texPos).
+    // ------------------------------------------------------------
+    // step = quantos pixels da textura "andamos" a cada 1 pixel da tela
+    double step = 1.0 * TEX_HEIGHT / lineHeight;
 
-    // Para cada pixel na coluna, mapeia a posição correspondente da textura e desenha o pixel
+    // Normalmente, a fórmula para texPos é:
+    //   (drawStart - (WINDOW_HEIGHT / 2 - lineHeight / 2)) * step
+    // Ou seja, o quanto o topo da linha está acima do meio da tela.
+    double texPos = (drawStart - (WINDOW_HEIGHT / 2.0 - lineHeight / 2.0)) * step;
+
+    // ------------------------------------------------------------
+    // 3) Clamp de drawStart e drawEnd, ajustando também texPos.
+    // ------------------------------------------------------------
+    // Se drawStart for negativo, significa que parte da parede
+    // deveria estar acima da tela. Precisamos "pular" essa parte
+    // na textura, avançando texPos.
+    if (drawStart < 0)
+    {
+        texPos += (0 - drawStart) * step;
+        drawStart = 0;
+    }
+    if (drawEnd >= WINDOW_HEIGHT)
+        drawEnd = WINDOW_HEIGHT - 1;
+
+    // ------------------------------------------------------------
+    // 4) Loop de desenho (varremos de drawStart até drawEnd).
+    // ------------------------------------------------------------
     for (int y = drawStart; y < drawEnd; y++)
     {
+        // Pegamos a coordenada Y da textura (entre 0 e TEX_HEIGHT-1).
         int texY = (int)texPos & (TEX_HEIGHT - 1);
         texPos += step;
+
+        // Busca a cor no pixel (texX, texY) da textura apropriada.
         int color = get_texture_pixel(game, texX, texY);
+
+        // Desenha na imagem final.
         mlx_put_pixel(image, pixels, y, color);
     }
 }
@@ -158,36 +194,14 @@ void    ft_init_player(t_game *game)
 	game->camera.plane[1] = -0.66;
 }
 
-// Para 'N' (Norte):
-// Já está definido como:
-
-// vector_dir = (0, -1)
-// camera.plane = (0.66, 0)
-// (Isso está correto)
-// Para 'S' (Sul):
-// Uma configuração comum é:
-
-// vector_dir = (0, 1)
-// camera.plane = (-0.66, 0)
-// Se os comandos de seta estão invertidos, pode ser necessário ajustar o sinal do vetor do plano ou tratar a rotação de forma consistente com essa configuração.
-// Para 'E' (Leste):
-// Uma configuração adequada seria:
-
-// vector_dir = (1, 0)
-// camera.plane = (0, 0.66)
-// (Observe que o vetor do plano é perpendicular a (1, 0).)
-// Para 'W' (Oeste):
-// Configure como:
-
-// vector_dir = (-1, 0)
-// camera.plane = (0, -0.66)
-// (Aqui também, o vetor do plano precisa ser perpendicular a (-1, 0).)
+// Configurações comentadas para as direções 'N', 'S', 'E' e 'W'
+// (os comentários permanecem para referência)
 
 void ft_find_rays(t_game *game)
 {
 	int     pixels;
-	float   multiplier; 
-	float   camera_pixel[2];
+	double  multiplier; 
+	double  camera_pixel[2];
 
 	pixels = 0;
 	multiplier = 0;
@@ -195,7 +209,7 @@ void ft_find_rays(t_game *game)
 	game->camera.ray_dir[1] = 0;
 	while (pixels <= WINDOW_WIDTH)
 	{
-		multiplier = 2.0f * ((float)pixels / (float)WINDOW_WIDTH) -1.0f;
+		multiplier = 2.0 * ((double)pixels / (double)WINDOW_WIDTH) - 1.0;
 		camera_pixel[0] = game->camera.plane[0] * multiplier;
 		camera_pixel[1] = game->camera.plane[1] * multiplier;
 		game->camera.ray_dir[0] = game->player_info.vector_dir[0] + camera_pixel[0];
@@ -205,20 +219,21 @@ void ft_find_rays(t_game *game)
 		pixels++;
 	}
 }
+
 void ft_dda(t_game *game)
 {
-	float delta_distx;
-	float delta_disty;
-	float dist_side_x;
-	float dist_side_y;
-	float step_x;
-	float step_y;
-	float dda_line_size_x;
-	float dda_line_size_y;
+	double delta_distx;
+	double delta_disty;
+	double dist_side_x;
+	double dist_side_y;
+	double step_x;
+	double step_y;
+	double dda_line_size_x;
+	double dda_line_size_y;
 	int wall_map_pos[2];
-	float wall_line_height;
+	double wall_line_height;
 
-	wall_line_height= 0;
+	wall_line_height = 0;
 	delta_distx = 0;
 	delta_disty = 0;
 	step_x = 0;
@@ -277,7 +292,7 @@ void ft_dda(t_game *game)
 			wall_map_pos[1] += step_y;
 			game->img.hit_side = 1;
 		}
-		if(game->map.matrix[wall_map_pos[1]][wall_map_pos[0]] == '1')
+		if (game->map.matrix[wall_map_pos[1]][wall_map_pos[0]] == '1')
 			game->img.hit = 1;
 	}
 	if (game->img.hit_side == 0)
@@ -288,5 +303,3 @@ void ft_dda(t_game *game)
 	game->img.wall_line_start = WINDOW_HEIGHT / 2 - wall_line_height / 2;
 	game->img.wall_line_end = WINDOW_HEIGHT / 2 + wall_line_height / 2;
 }
-
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/02/28 23:55:47 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/03 11:54:25 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define SO "./src/textures/south_texture.png"
 # define NO "./src/textures/north_texture.png"
 # define WE "./src/textures/west_texture.png"
-# define EA "./src/textures/west_texture.png"
+# define EA "./src/textures/east_texture.png"
 
 # define MAP_EXT_DEF ".cub"
 
@@ -72,8 +72,8 @@ typedef struct s_map
 typedef struct s_player
 {
 	int				square_pos[2];
-	float			vector_pos[2];
-	float			vector_dir[2];
+	double			vector_pos[2];
+	double			vector_dir[2];
 	int				x;
 	int				y;
 	int				found;
@@ -83,9 +83,9 @@ typedef struct s_player
 
 typedef struct s_camera
 {
-	float	plane[2];
-	float	negative_plane[2];
-	float   ray_dir[2];
+	double	plane[2];
+	double	negative_plane[2];
+	double  ray_dir[2];
 
 }	t_camera;
 
@@ -106,9 +106,9 @@ typedef struct s_image
 	mlx_image_t		*east;
 	int				hit;
 	int				hit_side;
-	float			wall_line_start;
-	float			wall_line_end;
-	float 			perpendicular_dist;
+	double			wall_line_start;
+	double			wall_line_end;
+	double 			perpendicular_dist;
 }	t_image;
 
 typedef struct s_game
@@ -178,6 +178,5 @@ void	ft_init_textures(t_game *game);
 int		get_texture_pixel(t_game *game, int texX, int texY);
 unsigned int fix_color(unsigned int color);
 int create_trgb(int t, int r, int g, int b);
-
 
 #endif

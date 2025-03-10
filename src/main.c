@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/10 10:58:55 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:23:22 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,23 @@ void	ft_parse_texture(char *line, t_game *game)
 	ft_free_split(tokens);
 }
 
+void	ft_convert_rgb(int r, int g, int b, char **tokens, t_game *game)
+{
+	if (ft_strcmp(tokens[0], "F") == 0)
+		game->floor_color = (r << 16) | (g << 8) | b;
+	else if (ft_strcmp(tokens[0], "C") == 0)
+		game->ceiling_color = (r << 16) | (g << 8) | b;
+	else
+		ft_error("Error: Unknown color identifier\n", game);
+}
+
+void	ft_msg_color_fmt(char **tokens, t_game *game)
+{
+	ft_error("Error: Invalid color format\n", game);
+	ft_free_split(tokens);
+	return ;
+}
+
 void	ft_parse_color(char *line, t_game *game)
 {
 	char	**tokens;
@@ -84,13 +101,7 @@ void	ft_parse_color(char *line, t_game *game)
 
 	tokens = ft_split(line, ' ');
 	if (!tokens || !tokens[0] || !tokens[1])
-	{
-		ft_error("Error: Invalid color format\n", game);
-		ft_free_split(tokens);
-		return ;
-	}
-
-	// Separar os valores de cor "220,100,0" em ["220", "100", "0"]
+		ft_msg_color_fmt(tokens, game);
 	rgb_values = ft_split(tokens[1], ',');
 	if (!rgb_values || !rgb_values[0] || !rgb_values[1] || !rgb_values[2])
 	{
@@ -99,23 +110,12 @@ void	ft_parse_color(char *line, t_game *game)
 		ft_free_split(tokens);
 		return ;
 	}
-
 	r = ft_atoi(rgb_values[0]);
 	g = ft_atoi(rgb_values[1]);
 	b = ft_atoi(rgb_values[2]);
-
-	// Verificar se os valores estão dentro do intervalo válido
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		ft_error("Error: RGB values must be between 0 and 255\n", game);
-
-	// Converter para formato RGB inteiro
-	if (ft_strcmp(tokens[0], "F") == 0)
-		game->floor_color = (r << 16) | (g << 8) | b;
-	else if (ft_strcmp(tokens[0], "C") == 0)
-		game->ceiling_color = (r << 16) | (g << 8) | b;
-	else
-		ft_error("Error: Unknown color identifier\n", game);
-
+	ft_convert_rgb(r, g, b, tokens, game); 	// Converter para formato RGB inteiro
 	ft_free_split(rgb_values);
 	ft_free_split(tokens);
 }

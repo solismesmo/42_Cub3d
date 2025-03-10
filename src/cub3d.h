@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/03 14:22:04 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/10 11:02:27 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ typedef struct s_game
 	t_mult			player[1];
 	int				moves;
 	t_camera		camera;
+	int				floor_color;
+	int				ceiling_color;
 
 }					t_game;
 

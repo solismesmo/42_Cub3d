@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bgomes-l <bgomes-l@student.42.fr>          +#+  +:+       +#+         #
+#    By: bruno <bruno@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 13:30:54 by bgomes-l          #+#    #+#              #
-#    Updated: 2023/12/13 10:51:32 by bgomes-l         ###   ########.fr        #
+#    Updated: 2025/03/21 02:10:41 by bruno            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ B_OBJ = $(B_SRC:%.c=%.o)
 
 HEADER = libft.h
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g3
 
 all: $(NAME)
 

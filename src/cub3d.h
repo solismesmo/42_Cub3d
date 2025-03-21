@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/03 14:22:04 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/21 02:47:46 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,5 +168,10 @@ int				get_texture_pixel(t_game *game, int texX, int texY);
 unsigned int 	fix_color(unsigned int color);
 int				ft_is_header_line(char *line);
 void			ft_check_map_information(t_game *game);
+int				ft_dfs_closed(t_game *game, int row, int col);
+void	ft_check_closed(t_game *game);
+void	ft_mark_visited(t_game *game, int row, int col);
+void	print_fill_matrix(t_game *game);
+void	print_matrix(t_game *game);
 
 #endif

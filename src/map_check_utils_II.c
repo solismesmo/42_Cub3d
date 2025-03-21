@@ -6,24 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:48:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/03/03 16:02:12 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/21 03:15:11 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_last_line(char **matrix, t_game	*game)
-{
-	int	i;
-
-	i = 0;
-	while (matrix[game->map.rows - 1][i])
-	{
-		if (matrix[game->map.rows - 1][i] != '1')
-			ft_error("Missing walls\n", game);
-		i++;
-	}
-}
 
 void	ft_check_walls(t_game *game)
 {

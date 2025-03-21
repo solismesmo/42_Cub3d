@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/03 15:32:51 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/21 03:08:28 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	ft_init_map(t_game *game)
 		ft_error("Error, empty map!\n", game);
 	game->map.map_full = map_full;
 	game->map.matrix = ft_split(game->map.map_full, '\n');
+	game->map.matrix_fill = ft_split(game->map.map_full, '\n');
 	ft_init_map_matrix(game);
 }
 
@@ -109,6 +110,10 @@ void	ft_init_map(t_game *game)
 void	ft_init_map_matrix(t_game *game)
 {
 	ft_map_lego(game);
+	ft_char_check(game);
+	ft_check_closed(game);
+	print_fill_matrix(game);
+	
 }
 
 void	ft_init_mlx(t_game *game)

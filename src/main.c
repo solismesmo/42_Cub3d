@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/21 03:08:28 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/21 03:27:46 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,73 @@ int	ft_is_header_line(char *line)
 	return (0);
 }
 
+void	ft_parse_texture(char *line, t_game *game)
+{
+	char	**tokens;
+
+	tokens = ft_split(line, ' ');
+	if (!tokens || !tokens[0] || !tokens[1])
+	{
+		ft_error("Error: Invalid texture path\n", game);
+		return ;
+	}
+	if (ft_strcmp(tokens[0], "NO") == 0)
+		game->img.path_north = ft_strdup(tokens[1]);
+	else if (ft_strcmp(tokens[0], "SO") == 0)
+		game->img.path_south = ft_strdup(tokens[1]);
+	else if (ft_strcmp(tokens[0], "WE") == 0)
+		game->img.path_west = ft_strdup(tokens[1]);
+	else if (ft_strcmp(tokens[0], "EA") == 0)
+		game->img.path_east = ft_strdup(tokens[1]);
+	else
+		ft_error("Error: Unknown texture identifier\n", game);
+	ft_free_split(tokens);
+}
+
+void	ft_convert_rgb(int r, int g, int b, char **tokens, t_game *game)
+{
+	if (ft_strcmp(tokens[0], "F") == 0)
+		game->floor_color = (r << 16) | (g << 8) | b;
+	else if (ft_strcmp(tokens[0], "C") == 0)
+		game->ceiling_color = (r << 16) | (g << 8) | b;
+	else
+		ft_error("Error: Unknown color identifier\n", game);
+}
+
+void	ft_msg_color_fmt(char **tokens, t_game *game)
+{
+	ft_error("Error: Invalid color format\n", game);
+	ft_free_split(tokens);
+	return ;
+}
+
+void	ft_parse_color(char *line, t_game *game)
+{
+	char	**tokens;
+	char	**rgb_values;
+	int		r, g, b;
+
+	tokens = ft_split(line, ' ');
+	if (!tokens || !tokens[0] || !tokens[1])
+		ft_msg_color_fmt(tokens, game);
+	rgb_values = ft_split(tokens[1], ',');
+	if (!rgb_values || !rgb_values[0] || !rgb_values[1] || !rgb_values[2])
+	{
+		ft_error("Error: Invalid RGB values\n", game);
+		ft_free_split(rgb_values);
+		ft_free_split(tokens);
+		return ;
+	}
+	r = ft_atoi(rgb_values[0]);
+	g = ft_atoi(rgb_values[1]);
+	b = ft_atoi(rgb_values[2]);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		ft_error("Error: RGB values must be between 0 and 255\n", game);
+	ft_convert_rgb(r, g, b, tokens, game); 	// Converter para formato RGB inteiro
+	ft_free_split(rgb_values);
+	ft_free_split(tokens);
+}
+
 
 void	ft_init_map(t_game *game)
 {
@@ -61,20 +128,20 @@ void	ft_init_map(t_game *game)
 	char	*map_full;
 
 	map_full = NULL;
-	// Lê a primeira linha fora do while
 	game->map.line = get_next_line(game->fd);
 	while (game->map.line != NULL)
 	{
-		// Processa as linhas do cabeçalho
 		if (ft_is_header_line(game->map.line))
 		{
-			// Armazene as informações do cabeçalho conforme necessário
-			// Por exemplo, parse_texture(line) ou parse_color(line)
+			if (game->map.line[0] == 'N' || game->map.line[0] == 'S' ||
+				game->map.line[0] == 'W' || game->map.line[0] == 'E')
+				ft_parse_texture(game->map.line, game);
+			else if (game->map.line[0] == 'F' || game->map.line[0] == 'C')
+				ft_parse_color(game->map.line, game);
 			free(game->map.line);
 		}
 		else if (ft_strlen(game->map.line) > 1)
 		{
-			// Chegou na parte do mapa, inicia a string do mapa
 			map_full = ft_strdup(game->map.line);
 			ft_map_walls(game);
 			free(game->map.line);
@@ -84,10 +151,8 @@ void	ft_init_map(t_game *game)
 		{
 			free(game->map.line);
 		}
-		// Atribuição fora do while
 		game->map.line = get_next_line(game->fd);
 	}
-	// Continua juntando as linhas restantes do mapa
 	game->map.line = get_next_line(game->fd);
 	while (game->map.line != NULL)
 	{

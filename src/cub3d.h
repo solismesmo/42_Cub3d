@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/21 02:47:46 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/21 03:27:13 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ typedef struct s_game
 	t_mult			player[1];
 	int				moves;
 	t_camera		camera;
+	int				floor_color;
+	int				ceiling_color;
 
 }					t_game;
 

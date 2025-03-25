@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/25 02:06:47 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/25 14:03:04 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,46 @@ void	ft_init_game(t_game *game)
 	ft_init_image(game);
 	ft_find_rays(game);
 }
+void ft_check_path(char *path)
+{
+	if (!path || !(*path))
+		return;
+	while(*path != '\n')
+	{
+		path++;
+	}
+	*path = '\0';
+}
+
+int ft_check_texture_path(const char *path, t_game *game)
+{
+    int fd;
+
+    fd = open(path, O_RDONLY);
+    if (fd < 0)
+    {
+        ft_error("Erro ao abrir o arquivo de textura", game);
+        return (0);  // Caminho inválido
+    }
+    close(fd);
+    return (1);      // Caminho válido
+}
 
 void	ft_init_textures(t_game *game)
 {
-	ft_place_png(game, &game->img.north, NO);
-	ft_place_png(game, &game->img.south, SO);
-	ft_place_png(game, &game->img.west, WE);
-	ft_place_png(game, &game->img.east, EA);
+	
+	ft_check_path(game->img.path_north);
+	ft_check_path(game->img.path_south);
+	ft_check_path(game->img.path_west);
+	ft_check_path(game->img.path_east);
+	ft_check_texture_path(game->img.path_north, game);
+	ft_check_texture_path(game->img.path_south, game);
+	ft_check_texture_path(game->img.path_west, game);
+	ft_check_texture_path(game->img.path_east, game);
+	ft_place_png(game, &game->img.north, game->img.path_north);
+	ft_place_png(game, &game->img.south, game->img.path_south);
+	ft_place_png(game, &game->img.west, game->img.path_west);
+	ft_place_png(game, &game->img.east, game->img.path_east);
 }
 
 void	ft_place_png(t_game *game, mlx_image_t **image, char *path)
@@ -34,6 +67,8 @@ void	ft_place_png(t_game *game, mlx_image_t **image, char *path)
 
 	my_texture = mlx_load_png(path);
 	*image = mlx_texture_to_image(game->mlx, my_texture);
+	if(!*image)
+		ft_error("Error: Invalid texture path\n", game);
 	mlx_delete_texture(my_texture);
 }
 

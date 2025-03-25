@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:48:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/03/21 03:15:11 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/25 11:02:36 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	ft_map_lego(t_game *game)
 	while (i < game->map.lines)
 	{
 		j = 0;
+		if(game->map.check_inputs !=6)
+			ft_error("Error: Missing texture or color\n", game);
 		while (game->map.matrix[i][j])
 		{
 			if (game->map.matrix[i][j] == 'P' || game->map.matrix[i][j] == 'N' || \

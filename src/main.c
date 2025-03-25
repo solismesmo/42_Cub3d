@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/21 03:27:46 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/25 02:02:18 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,33 @@ void	ft_parse_texture(char *line, t_game *game)
 		ft_error("Error: Invalid texture path\n", game);
 		return ;
 	}
-	if (ft_strcmp(tokens[0], "NO") == 0)
+	if (ft_strncmp(tokens[0], "NO", 2) == 0)
 		game->img.path_north = ft_strdup(tokens[1]);
-	else if (ft_strcmp(tokens[0], "SO") == 0)
+	else if (ft_strncmp(tokens[0], "SO", 2) == 0)
 		game->img.path_south = ft_strdup(tokens[1]);
-	else if (ft_strcmp(tokens[0], "WE") == 0)
+	else if (ft_strncmp(tokens[0], "WE", 2) == 0)
 		game->img.path_west = ft_strdup(tokens[1]);
-	else if (ft_strcmp(tokens[0], "EA") == 0)
+	else if (ft_strncmp(tokens[0], "EA", 2) == 0)
 		game->img.path_east = ft_strdup(tokens[1]);
 	else
 		ft_error("Error: Unknown texture identifier\n", game);
-	ft_free_split(tokens);
+	//ft_free_split(tokens);
+}
+
+uint32_t rgba_to_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+{
+    return (r << 24) | (g << 16) | (b << 8) | a;
 }
 
 void	ft_convert_rgb(int r, int g, int b, char **tokens, t_game *game)
 {
-	if (ft_strcmp(tokens[0], "F") == 0)
-		game->floor_color = (r << 16) | (g << 8) | b;
-	else if (ft_strcmp(tokens[0], "C") == 0)
-		game->ceiling_color = (r << 16) | (g << 8) | b;
+	if (ft_strncmp(tokens[0], "F", 1) == 0)
+		game->floor_color = rgba_to_rgba(r, g, b, 255);
+	else if (ft_strncmp(tokens[0], "C", 1) == 0)
+	{
+		printf("color is %d\n", rgba_to_rgba(r, g, b, 255));
+		game->ceiling_color = rgba_to_rgba(r, g, b, 255);
+	}
 	else
 		ft_error("Error: Unknown color identifier\n", game);
 }
@@ -89,7 +97,7 @@ void	ft_convert_rgb(int r, int g, int b, char **tokens, t_game *game)
 void	ft_msg_color_fmt(char **tokens, t_game *game)
 {
 	ft_error("Error: Invalid color format\n", game);
-	ft_free_split(tokens);
+	ft_free_map(tokens);
 	return ;
 }
 
@@ -106,8 +114,8 @@ void	ft_parse_color(char *line, t_game *game)
 	if (!rgb_values || !rgb_values[0] || !rgb_values[1] || !rgb_values[2])
 	{
 		ft_error("Error: Invalid RGB values\n", game);
-		ft_free_split(rgb_values);
-		ft_free_split(tokens);
+		//ft_free_split(rgb_values);
+		//ft_free_split(tokens);
 		return ;
 	}
 	r = ft_atoi(rgb_values[0]);
@@ -116,8 +124,8 @@ void	ft_parse_color(char *line, t_game *game)
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		ft_error("Error: RGB values must be between 0 and 255\n", game);
 	ft_convert_rgb(r, g, b, tokens, game); 	// Converter para formato RGB inteiro
-	ft_free_split(rgb_values);
-	ft_free_split(tokens);
+	//ft_free_split(rgb_values);
+	//ft_free_split(tokens);
 }
 
 
@@ -177,8 +185,6 @@ void	ft_init_map_matrix(t_game *game)
 	ft_map_lego(game);
 	ft_char_check(game);
 	ft_check_closed(game);
-	print_fill_matrix(game);
-	
 }
 
 void	ft_init_mlx(t_game *game)

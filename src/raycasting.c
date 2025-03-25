@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/03 16:27:08 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/25 02:06:47 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,17 @@ void ft_init_image(t_game *game)
 		x = 0;
 		while (x < WINDOW_WIDTH)
 		{
-			mlx_put_pixel(img, x, y, 0xCFD1F9FF);
+			mlx_put_pixel(img, x, y,  game->ceiling_color);
+			x++;
+		}
+		y++;
+	}
+	while (y < (WINDOW_HEIGHT))
+	{
+		x = 0;
+		while (x < WINDOW_WIDTH)
+		{
+			mlx_put_pixel(img, x, y,  game->floor_color);
 			x++;
 		}
 		y++;
@@ -177,8 +187,6 @@ int get_texture_pixel(t_game *game, int texX, int texY)
     int index = texY * TEX_WIDTH + texX;
     int *pixels = (int *)tex->pixels;
     int color = pixels[index];
-
-    // Corrige a ordem dos canais, se necessário
     return fix_color(color);
 }
 
@@ -187,7 +195,7 @@ void    ft_init_player(t_game *game)
 	game->player_info.vector_pos[0] = game->map.p_col + 0.5;
 	game->player_info.vector_pos[1] = game->map.p_row + 0.5;
 	game->player_info.vector_dir[0] = -1;
-	game->player_info.vector_dir[1] = 0;
+	game->player_info.vector_dir[1] = 0;	
 	game->player_info.x = game->map.p_col;
 	game->player_info.y = game->map.p_row;
 	game->camera.plane[0] = 0;
@@ -292,8 +300,6 @@ void ft_dda(t_game *game)
 			wall_map_pos[1] += step_y;
 			game->img.hit_side = 1;
 		}
-		//printf("wall_map_pos[0]: %d\n", wall_map_pos[0]);
-		//printf("wall_map_pos[1]: %d\n", wall_map_pos[1]);
 		if (game->map.matrix[wall_map_pos[1]][wall_map_pos[0]] == '1')
 			game->img.hit = 1;
 	}

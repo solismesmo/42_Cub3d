@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:44:25 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/03/25 15:20:50 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/26 17:04:54 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_map_condition(t_game *game)
 	// if (game->map.coin == 0)
 	// 	ft_error("The map doesn't have at least one collectable\n", game);
 	if (game->map.player != 1)
-		ft_error("have zero or more then one player\n", game);
+		ft_error("Have zero or more then one player\n", game);
 	return ;
 } 
 

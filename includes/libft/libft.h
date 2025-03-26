@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgomes-l <bgomes-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:16:08 by bgomes-l          #+#    #+#             */
-/*   Updated: 2023/12/13 10:48:24 by bgomes-l         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:20:04 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
-# define DEC_BASE "0123456789"
-# define HEXA_LOW "0123456789abcdef"
-# define HEXA_UP "0123456789ABCDEF"
+#  define DEC_BASE "0123456789"
+#  define HEXA_LOW "0123456789abcdef"
+#  define HEXA_UP "0123456789ABCDEF"
 # endif
 
 typedef struct s_list

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/25 09:28:58 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/26 18:57:29 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 
 # define TEX_WIDTH 256
 # define TEX_HEIGHT 256
-
 # define WINDOW_WIDTH 1020
 # define WINDOW_HEIGHT 800
-
-#define BPP sizeof(int32_t)
+# define BPP 4
 
 # include <stddef.h>
 # include <stdlib.h>
@@ -36,10 +34,7 @@
 # define NO "./src/textures/north_texture.png"
 # define WE "./src/textures/west_texture.png"
 # define EA "./src/textures/east_texture.png"
-
 # define MAP_EXT_DEF ".cub"
-
-
 
 typedef enum e_bool
 {
@@ -79,14 +74,14 @@ typedef struct s_player
 	int				y;
 	int				found;
 	char			direction;
-	
+
 }	t_player;
 
 typedef struct s_camera
 {
 	double	plane[2];
 	double	negative_plane[2];
-	double  ray_dir[2];
+	double	ray_dir[2];
 
 }	t_camera;
 
@@ -113,7 +108,7 @@ typedef struct s_image
 	int				hit_side;
 	double			wall_line_start;
 	double			wall_line_end;
-	double 			perpendicular_dist;
+	double			perpendicular_dist;
 }	t_image;
 
 typedef struct s_game
@@ -129,7 +124,7 @@ typedef struct s_game
 	t_mult			player[1];
 	int				moves;
 	t_camera		camera;
-	unsigned int				floor_color;
+	unsigned int	floor_color;
 	int				ceiling_color;
 
 }					t_game;
@@ -164,17 +159,18 @@ void			ft_init_game(t_game *game);
 void			ft_draw_image(t_game *game, int pixels, mlx_image_t *image);
 void			ft_init_image(t_game *game);
 void			ft_rotate_player(t_game *game, double angle);
-void    		ft_refresh_img(t_game *game);
+void			ft_refresh_img(t_game *game);
 void			ft_move_player(t_game *game, double move_speed);
 void			ft_init_textures(t_game *game);
 int				get_texture_pixel(t_game *game, int texX, int texY);
-unsigned int 	fix_color(unsigned int color);
+unsigned int	fix_color(unsigned int color);
 int				ft_is_header_line(char *line);
 void			ft_check_map_information(t_game *game);
 int				ft_dfs_closed(t_game *game, int row, int col);
-void	ft_check_closed(t_game *game);
-void	ft_mark_visited(t_game *game, int row, int col);
-void	print_fill_matrix(t_game *game);
-void	print_matrix(t_game *game);
+void			ft_check_closed(t_game *game);
+void			ft_mark_visited(t_game *game, int row, int col);
+void			print_fill_matrix(t_game *game);
+void			print_matrix(t_game *game);
+int				ft_dfs_done(int next_row, int col, int col_move, t_game *game);
 
 #endif

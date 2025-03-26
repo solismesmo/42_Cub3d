@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/25 12:03:01 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/26 17:35:44 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	ft_is_header_line(char *line)
 		line++;
 	if (*line == '\0' || *line == '\n')
 		return (0);
-	if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) ||
-	    !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2) ||
-	    !ft_strncmp(line, "F", 1)  || !ft_strncmp(line, "C", 1))
+	if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || \
+		!ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2) || \
+		!ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1))
 		return (1);
 	return (0);
 }
@@ -58,7 +58,8 @@ void	ft_parse_texture(char *line, t_game *game)
 	char	**tokens;
 
 	tokens = ft_split(line, ' ');
-	if (!tokens || !tokens[0] || !tokens[1] || ft_strlen(tokens[0]) > 2 || tokens[2])
+	if (!tokens || !tokens[0] || !tokens[1] || \
+		ft_strlen(tokens[0]) > 2 || tokens[2])
 	{
 		ft_error("Error: Invalid texture path\n", game);
 		return ;
@@ -74,12 +75,11 @@ void	ft_parse_texture(char *line, t_game *game)
 	else
 		ft_error("Error: Unknown texture identifier\n", game);
 	game->map.check_inputs++;
-	//ft_free_split(tokens);
 }
 
-uint32_t rgba_to_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+uint32_t	rgba_to_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
-    return (r << 24) | (g << 16) | (b << 8) | a;
+	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
 
 void	ft_convert_rgb(int r, int g, int b, char **tokens, t_game *game)
@@ -99,80 +99,67 @@ void	ft_msg_color_fmt(char **tokens, t_game *game)
 	return ;
 }
 
-int ft_isspace(int c)
+int	ft_isspace(int c)
 {
-    if (c == ' ' || c == '\t' || c == '\n' ||
-        c == '\v' || c == '\f' || c == '\r')
-        return (1);
-    return (0);
+	if (c == ' ' || c == '\t' || c == '\n' || \
+		c == '\v' || c == '\f' || c == '\r')
+		return (1);
+	return (0);
 }
 
-int ft_check_rgb_format(const char *str) 
+int	ft_check_rgb_format(const char *str)
 {
-    int i = 0;
-    int numCount = 0;
-	
-    // Pula espaços em branco
-    while (str[i] && ft_isspace((unsigned char)str[i]))
-        i++;
+	int	i;
+	int	num_count;
 
-    while (numCount < 3) {
-        // Verifica se há dígito para iniciar o número
-        if (!ft_isdigit((unsigned char)str[i]))
-            return 0; // Não encontrou dígito onde deveria iniciar um número
-
-        // Avança enquanto estiver lendo dígitos (o número pode ter mais de um dígito)
-        while (str[i] && ft_isdigit((unsigned char)str[i]))
-            i++;
-
-        numCount++;
-
-        // Pula espaços em branco
-        while (str[i] && ft_isspace((unsigned char)str[i]))
-            i++;
-
-        // Se ainda não lemos os três números, deve haver uma vírgula
-        if (numCount < 3) {
-            if (str[i] != ',')
-                return 0; // Esperava uma vírgula
-            i++; // pula a vírgula
-
-            // Pula espaços após a vírgula
-            while (str[i] && ft_isspace((unsigned char)str[i]))
-                i++;
-
-            // E espera um dígito logo após a vírgula
-            if (!ft_isdigit((unsigned char)str[i]))
-                return 0;
-        }
-    }
-
-    // Pula os espaços que possam sobrar
-    while (str[i] && ft_isspace((unsigned char)str[i]))
-        i++;
-
-    // Se houver algum caractere além de espaços, formato inválido
-    if (str[i] != '\0')
-        return 0;
-
-    return 1;
+	i = 0;
+	num_count = 0;
+	while (str[i] && ft_isspace((unsigned char)str[i]))
+		i++;
+	while (num_count < 3)
+	{
+		if (!ft_isdigit((unsigned char)str[i]))
+			return (0);
+		while (str[i] && ft_isdigit((unsigned char)str[i]))
+			i++;
+		num_count++;
+		while (str[i] && ft_isspace((unsigned char)str[i]))
+			i++;
+		if (num_count < 3)
+		{
+			if (str[i] != ',')
+				return (0);
+			i++;
+			while (str[i] && ft_isspace((unsigned char)str[i]))
+				i++;
+			if (!ft_isdigit((unsigned char)str[i]))
+				return (0);
+		}
+	}
+	while (str[i] && ft_isspace((unsigned char)str[i]))
+		i++;
+	if (str[i] != '\0')
+		return (0);
+	return (1);
 }
 
 void	ft_parse_color(char *line, t_game *game)
 {
 	char	**tokens;
 	char	**rgb_values;
-	int		r, g, b;
+	int		r;
+	int		g;
+	int		b;
 
 	tokens = ft_split(line, ' ');
-	if (!tokens || !tokens[0] || !tokens[1] || !(ft_check_rgb_format(tokens[1])) || ft_strlen(tokens[0]) > 1 || tokens[2])
+	if (!tokens || !tokens[0] || !tokens[1] || \
+		!(ft_check_rgb_format(tokens[1])) || \
+		ft_strlen(tokens[0]) > 1 || tokens[2])
 		ft_msg_color_fmt(tokens, game);
 	rgb_values = ft_split(tokens[1], ',');
 	if (!rgb_values || !rgb_values[0] || !rgb_values[1] || !rgb_values[2])
 	{
 		ft_error("Error: Invalid RGB values\n", game);
-		//ft_free_split(rgb_values);
-		//ft_free_split(tokens);
 		return ;
 	}
 	r = ft_atoi(rgb_values[0]);
@@ -180,28 +167,22 @@ void	ft_parse_color(char *line, t_game *game)
 	b = ft_atoi(rgb_values[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		ft_error("Error: RGB values must be between 0 and 255\n", game);
-	ft_convert_rgb(r, g, b, tokens, game); 	// Converter para formato RGB inteiro
+	ft_convert_rgb(r, g, b, tokens, game);
 	game->map.check_inputs++;
-	//ft_free_split(rgb_values);
-	//ft_free_split(tokens);
 }
 
 static int	is_whitespace(char c)
 {
-	return (c == ' ' || c == '\t' || c == '\n' ||
-			c == '\v' || c == '\f' || c == '\r');
+	return (c == ' ' || c == '\t' || c == '\n' || \
+		c == '\v' || c == '\f' || c == '\r');
 }
 
-// ft_is_space percorre a string apontada por *str e retorna 1 se
-// todos os caracteres forem espaços; caso contrário, retorna 0.
 int	ft_is_space(char **str)
 {
-	int i;
+	int	i;
 
-	// Verifica se a string ou o ponteiro para string são nulos
 	if (!str || !(*str))
 		return (0);
-
 	i = 0;
 	while ((*str)[i])
 	{
@@ -214,26 +195,24 @@ int	ft_is_space(char **str)
 
 void	ft_init_map(t_game *game)
 {
-	//char	*line;
 	char	*tmp;
 	char	*map_full;
 
 	map_full = NULL;
 	game->map.line = get_next_line(game->fd);
-
-	
 	while (game->map.line != NULL)
 	{
 		if (ft_is_header_line(game->map.line))
 		{
-			if (game->map.line[0] == 'N' || game->map.line[0] == 'S' ||
+			if (game->map.line[0] == 'N' || game->map.line[0] == 'S' || \
 				game->map.line[0] == 'W' || game->map.line[0] == 'E')
 				ft_parse_texture(game->map.line, game);
 			else if (game->map.line[0] == 'F' || game->map.line[0] == 'C')
 				ft_parse_color(game->map.line, game);
 			free(game->map.line);
 		}
-		else if (ft_strlen(game->map.line) > 1 && (!is_whitespace(*game->map.line)))
+		else if (ft_strlen(game->map.line) > 1 && \
+		(!is_whitespace(*game->map.line)))
 		{
 			map_full = ft_strdup(game->map.line);
 			game->map.lines++;
@@ -241,9 +220,7 @@ void	ft_init_map(t_game *game)
 			break ;
 		}
 		else
-		{
 			free(game->map.line);
-		}
 		game->map.line = get_next_line(game->fd);
 	}
 	game->map.line = get_next_line(game->fd);
@@ -264,19 +241,17 @@ void	ft_init_map(t_game *game)
 	ft_init_map_matrix(game);
 }
 
-
 void	ft_init_map_matrix(t_game *game)
 {
 	ft_map_lego(game);
 	ft_char_check(game);
 	ft_check_closed(game);
-	//print_fill_matrix(game);
 }
 
 void	ft_init_mlx(t_game *game)
 {
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	game->mlx = mlx_init( WINDOW_WIDTH, \
+	game->mlx = mlx_init(WINDOW_WIDTH, \
 	WINDOW_HEIGHT, "Cube 3D", true);
 	if (!game->mlx)
 	{
@@ -294,7 +269,7 @@ int	main(int argc, char **argv)
 	game->map_name = argv[1];
 	ft_map_open(game);
 	ft_init_map(game);
-	if(game->map.check_inputs !=6)
+	if (game->map.check_inputs != 6)
 		ft_error("Error: Missing texture or color\n", game);
 	ft_init_mlx(game);
 	ft_init_game(game);

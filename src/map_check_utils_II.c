@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:48:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/03/25 11:02:36 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/27 01:31:57 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,4 +132,9 @@ void	ft_init_moves(t_game *game)
 	game->moves = 0;
 	game->map.check_coins = 0;
 	game->map.matrix_fill = NULL;
+	game->img.path_east = NULL;
+	game->img.path_north = NULL;
+	game->img.path_south = NULL;
+	game->img.path_west = NULL;
+	game->mlx = NULL;
 }

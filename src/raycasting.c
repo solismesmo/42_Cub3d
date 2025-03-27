@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/25 14:03:04 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/27 01:26:29 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int ft_check_texture_path(const char *path, t_game *game)
         return (0);  // Caminho inválido
     }
     close(fd);
-    return (1);      // Caminho válido
+    return(1);      // Caminho válido
 }
 
 void	ft_init_textures(t_game *game)

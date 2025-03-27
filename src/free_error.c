@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:52:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/03/27 01:03:00 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/27 01:28:21 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	ft_error(char *message, t_game *game)
 		free(game->img.path_south);
 	if(game->img.path_west != NULL)
 		free(game->img.path_west);
+	if (game->mlx != NULL)
+		mlx_terminate(game->mlx);
 	free(game);
 	exit(1);
 }

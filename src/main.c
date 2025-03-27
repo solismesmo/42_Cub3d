@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 00:55:03 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/27 01:53:33 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,30 @@ int	ft_is_header_line(char *line)
 	return (0);
 }
 
+void	ft_is_path_null(t_game *game)
+{
+	if(game->img.path_north != NULL)
+	{
+		free(game->img.path_north);
+		game->img.path_north = NULL;
+	}
+	if(game->img.path_south != NULL)
+	{
+		free(game->img.path_south);
+		game->img.path_south = NULL;
+	}
+	if(game->img.path_west != NULL)
+	{
+		free(game->img.path_west);
+		game->img.path_west = NULL;
+	}
+	if(game->img.path_east != NULL)
+	{
+		free(game->img.path_east);
+		game->img.path_east = NULL;
+	}
+}
+
 void	ft_parse_texture(char *line, t_game *game)
 {
 	char	**tokens;
@@ -61,9 +85,11 @@ void	ft_parse_texture(char *line, t_game *game)
 	tokens = ft_split(line, ' ');
 	if (!tokens || !tokens[0] || !tokens[1] || ft_strlen(tokens[0]) > 2 || tokens[2])
 	{
+		ft_free_map(tokens);
 		ft_error("Error: Invalid texture path\n", game);
 		return ;
 	}
+	ft_is_path_null(game);
 	if (ft_strncmp(tokens[0], "NO", 2) == 0)
 		game->img.path_north = ft_strdup(tokens[1]);
 	else if (ft_strncmp(tokens[0], "SO", 2) == 0)
@@ -95,9 +121,8 @@ void	ft_convert_rgb(int r, int g, int b, char **tokens, t_game *game)
 
 void	ft_msg_color_fmt(char **tokens, t_game *game)
 {
-	ft_error("Error: Invalid color format\n", game);
 	ft_free_map(tokens);
-	return ;
+	ft_error("Error: Invalid color format\n", game);
 }
 
 int ft_isspace(int c)
@@ -171,16 +196,19 @@ void	ft_parse_color(char *line, t_game *game)
 	rgb_values = ft_split(tokens[1], ',');
 	if (!rgb_values || !rgb_values[0] || !rgb_values[1] || !rgb_values[2])
 	{
-		ft_error("Error: Invalid RGB values\n", game);
 		ft_free_map(rgb_values);
 		ft_free_map(tokens);
-		return ;
+		ft_error("Error: Invalid RGB values\n", game);
 	}
 	r = ft_atoi(rgb_values[0]);
 	g = ft_atoi(rgb_values[1]);
 	b = ft_atoi(rgb_values[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+	{
+		ft_free_map(rgb_values);
+		ft_free_map(tokens);
 		ft_error("Error: RGB values must be between 0 and 255\n", game);
+	}
 	ft_convert_rgb(r, g, b, tokens, game); 	// Converter para formato RGB inteiro
 	game->map.check_inputs++;
 	ft_free_map(rgb_values);

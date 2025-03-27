@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 08:29:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/25 08:50:20 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/27 01:00:54 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,7 @@ int ft_dfs_closed(t_game *game, int row, int col)
     if ((row == 0 || row == game->map.rows - 1 ||
         col == 0 || col == row_length - 1) &&
        game->map.matrix[row][col] != '1')
-    {
-       printf("Erro: mapa aberto na posição [%d][%d]\n", row, col);
-       return (0);
-    }
-
+       ft_error("Missing Walls", game);
     ft_mark_visited(game, row, col);
 
     i = 0;
@@ -50,21 +46,14 @@ int ft_dfs_closed(t_game *game, int row, int col)
     
         // Verifica se next_row está dentro dos limites do mapa
         if (next_row < 0 || next_row >= game->map.rows)
-        {
-            printf("Erro: mapa aberto na linha %d\n", next_row);
-            return (0);
-        }
+            ft_error("Missing Walls", game);
         
         // Obtém o comprimento da linha de destino
         int next_row_length = strlen(game->map.matrix[next_row]);
         
         // Se a coluna estiver fora do intervalo válido, considera abertura
         if (next_col < 0 || next_col >= next_row_length)
-        {
-            printf("Erro: mapa aberto na posição [%d][%d] (comprimento da linha: %d)\n",
-                   next_row, next_col, next_row_length);
-            return (0);
-        }
+            ft_error("Missing Walls", game);
         
         // Se a célula de destino não for parede e ainda não foi visitada...
         if (game->map.matrix[next_row][next_col] != '1' &&
@@ -87,7 +76,7 @@ void ft_check_closed(t_game *game)
     else
     {
         //print_fill_matrix(game);
-        ft_error("O mapa não está fechado por paredes", game);
+        ft_error("Missing Walls", game);
     }
 }
 

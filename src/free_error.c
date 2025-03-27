@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:52:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/01/15 22:08:07 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:03:00 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ void	ft_error(char *message, t_game *game)
 		ft_free_map(game->map.matrix);
 	if (game->map.matrix_fill != NULL)
 		ft_free_map(game->map.matrix_fill);
+	if(game->img.path_east != NULL)
+		free(game->img.path_east);
+	if(game->img.path_north != NULL)
+		free(game->img.path_north);
+	if(game->img.path_south != NULL)
+		free(game->img.path_south);
+	if(game->img.path_west != NULL)
+		free(game->img.path_west);
 	free(game);
 	exit(1);
 }
@@ -46,6 +54,14 @@ void	ft_finish(char *message, t_game *game)
 		ft_free_map(game->map.matrix_fill);
 	if (game->mlx != NULL)
 		mlx_terminate(game->mlx);
+	if(game->img.path_east != NULL)
+		free(game->img.path_east);
+	if(game->img.path_north != NULL)
+		free(game->img.path_north);
+	if(game->img.path_south != NULL)
+		free(game->img.path_south);
+	if(game->img.path_west != NULL)
+		free(game->img.path_west);
 	free(game);
 	exit(0);
 }

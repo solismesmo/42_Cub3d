@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/25 12:03:01 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/27 00:55:03 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_game	*ft_init_values(void)
 	game->moves = 1;
 	game->map.p_col = 0;
 	game->map.p_row = 0;
+	game->map.check_inputs = 0;
 	ft_init_moves(game);
 	return (game);
 }
@@ -74,7 +75,7 @@ void	ft_parse_texture(char *line, t_game *game)
 	else
 		ft_error("Error: Unknown texture identifier\n", game);
 	game->map.check_inputs++;
-	//ft_free_split(tokens);
+	ft_free_map(tokens);
 }
 
 uint32_t rgba_to_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
@@ -171,8 +172,8 @@ void	ft_parse_color(char *line, t_game *game)
 	if (!rgb_values || !rgb_values[0] || !rgb_values[1] || !rgb_values[2])
 	{
 		ft_error("Error: Invalid RGB values\n", game);
-		//ft_free_split(rgb_values);
-		//ft_free_split(tokens);
+		ft_free_map(rgb_values);
+		ft_free_map(tokens);
 		return ;
 	}
 	r = ft_atoi(rgb_values[0]);
@@ -182,8 +183,8 @@ void	ft_parse_color(char *line, t_game *game)
 		ft_error("Error: RGB values must be between 0 and 255\n", game);
 	ft_convert_rgb(r, g, b, tokens, game); 	// Converter para formato RGB inteiro
 	game->map.check_inputs++;
-	//ft_free_split(rgb_values);
-	//ft_free_split(tokens);
+	ft_free_map(rgb_values);
+	ft_free_map(tokens);
 }
 
 static int	is_whitespace(char c)

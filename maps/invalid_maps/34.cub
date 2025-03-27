@@ -1,8 +1,8 @@
 
-NO ./textures_xpm/north_texture.png
-SO ./textures_xpm/south_texture.png
-EA ./textures_xpm/east_texture.png
-WE ./textures_xpm/west_texture.png
+NO ./src/textures//north_texture.png
+SO ./src/textures//south_texture.png
+EA ./src/textures//east_texture.png
+WE ./src/textures//west_texture.png
 
 C 155,100,160
 

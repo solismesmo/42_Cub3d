@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:26:24 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 21:18:31 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/27 22:03:20 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ uint32_t	rgba_to_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
 
-void	ft_convert_rgb(int r, int g, int b, char **tokens, t_game *game)
+void	ft_convert_rgb(t_rgb color, char **tokens, t_game *game)
 {
 	if (ft_strncmp(tokens[0], "F", 1) == 0)
-		game->floor_color = rgba_to_rgba(r, g, b, 255);
+		game->floor_color = rgba_to_rgba(color.r, color.g, color.b, 255);
 	else if (ft_strncmp(tokens[0], "C", 1) == 0)
-		game->ceiling_color = rgba_to_rgba(r, g, b, 255);
+		game->ceiling_color = rgba_to_rgba(color.r, color.g, color.b, 255);
 	else
 		ft_error("Error: Unknown color identifier\n", game);
 }

@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:23:09 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 20:42:18 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/27 22:05:43 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ void	ft_parse_color(char *line, t_game *game)
 {
 	char	**tokens;
 	char	**rgb_values;
-	int		r;
-	int		g;
-	int		b;
+	t_rgb	color;
 
 	tokens = ft_split(line, ' ');
 	if (!tokens || !tokens[0] || !tokens[1] || \
@@ -79,11 +77,12 @@ void	ft_parse_color(char *line, t_game *game)
 		ft_error("Error: Invalid RGB values\n", game);
 		return ;
 	}
-	r = ft_atoi(rgb_values[0]);
-	g = ft_atoi(rgb_values[1]);
-	b = ft_atoi(rgb_values[2]);
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+	color.r = ft_atoi(rgb_values[0]);
+	color.g = ft_atoi(rgb_values[1]);
+	color.b = ft_atoi(rgb_values[2]);
+	if (color.r < 0 || color.r > 255 || color.g < 0 || color.g > 255 || \
+		color.b < 0 || color.b > 255)
 		ft_error("Error: RGB values must be between 0 and 255\n", game);
-	ft_convert_rgb(r, g, b, tokens, game);
+	ft_convert_rgb(color, tokens, game);
 	game->map.check_inputs++;
 }

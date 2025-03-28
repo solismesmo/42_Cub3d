@@ -14,9 +14,11 @@ SOURCE_BONUS_PATH = src_bonus/
 LIBFT_PATH = ./includes/libft/
 LIBFT = ./includes/libft/libft.a
 
-SRCS	:= main.c map_check_utils.c map_check_utils_II.c \
-			open_close_args.c free_error.c raycasting.c moviment.c \
-			draw.c dda.c map_check.c
+SRCS	:= main.c calculate_ll.c calculate.c coloring.c init_image.c \
+		map_check_utils.c map_check_utils_II.c init_map.c \
+		open_close_args.c free_error.c raycasting.c moviment.c \
+		draw.c dda.c map_check.c map_print.c parsing.c utils.c \
+		walls.c
 
 
 OBJECTS_PATH = objects

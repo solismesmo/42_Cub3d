@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:48:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/03/27 20:38:02 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/27 22:13:01 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_superior_line(t_game *game, int j)
 	}
 }
 
-void	ft_inferior_line(t_game game, int j)
+void	ft_inferior_line(t_game *game, int j)
 {
 	if (game->map.matrix[game->map.lines - 1][j] != '1' && \
 		game->map.matrix[game->map.lines - 1][j] != ' ')
@@ -31,7 +31,7 @@ void	ft_inferior_line(t_game game, int j)
 	}
 }
 
-void	ft_map_cols(t_game *game, int i, int j)
+void	ft_map_cols(t_game *game, int i)
 {
 	if (game->map.matrix[i][0] != '1' && game->map.matrix[i][0] != ' ')
 	{
@@ -66,7 +66,7 @@ void	ft_check_walls(t_game *game)
 	i = 0;
 	while (i < game->map.lines)
 	{
-		ft_map_cols(game, i, j);
+		ft_map_cols(game, i);
 		i++;
 	}
 }

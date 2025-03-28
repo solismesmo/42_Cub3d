@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/27 21:55:10 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/27 22:13:59 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	get_texture_pixel(t_game *game, int texX, int texY)
 	if (!tex || !tex->pixels)
 		return (0);
 	index = texY * TEX_WIDTH + texX;
-	*pixels = (int *)tex->pixels;
+	pixels = (int *)tex->pixels;
 	color = pixels[index];
 	return (fix_color(color));
 }

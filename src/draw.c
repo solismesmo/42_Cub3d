@@ -6,13 +6,13 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:37:08 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/27 22:00:45 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/27 22:15:45 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	ft_initialize_texture_info(t_game *game, t_render_info *info)
+static void	ft_initialize_texture_info(t_render_info *info)
 {
 	info->step = 1.0 * TEX_HEIGHT / info->line_height;
 	info->tex_pos = (info->draw_start - (WINDOW_HEIGHT / 2.0 - \
@@ -54,6 +54,6 @@ void	ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
 		return ;
 	wall_x = ft_calculate_wall_x(game);
 	ft_calculate_tex_x(game, &info, wall_x);
-	ft_initialize_texture_info(game, &info);
+	ft_initialize_texture_info(&info);
 	ft_render_texture_line(game, pixels, image, &info);
 }

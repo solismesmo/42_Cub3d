@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:26:24 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 20:44:09 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/27 21:18:31 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,11 @@ void	ft_convert_rgb(int r, int g, int b, char **tokens, t_game *game)
 		game->ceiling_color = rgba_to_rgba(r, g, b, 255);
 	else
 		ft_error("Error: Unknown color identifier\n", game);
+}
+
+void	ft_msg_color_fmt(char **tokens, t_game *game)
+{
+	ft_error("Error: Invalid color format\n", game);
+	ft_free_map(tokens);
+	return ;
 }

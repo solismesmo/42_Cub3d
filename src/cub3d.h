@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 21:14:28 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/27 21:21:10 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,19 @@ typedef struct s_render_info
 	double	step;
 	double	tex_pos;
 }	t_render_info;
+
+typedef struct s_dda_params
+{
+	double	delta_distx;
+	double	delta_disty;
+	double	dist_side_x;
+	double	dist_side_y;
+	double	step_x;
+	double	step_y;
+	double	dda_line_size_x;
+	double	dda_line_size_y;
+	int		wall_map_pos[2];
+}	t_dda_params;
 
 void			ft_check_args(int argc, char **argv);
 void			ft_check_walls(t_game *game);

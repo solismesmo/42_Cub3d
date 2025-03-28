@@ -6,18 +6,11 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 20:31:26 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/27 21:18:25 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_msg_color_fmt(char **tokens, t_game *game)
-{
-	ft_error("Error: Invalid color format\n", game);
-	ft_free_map(tokens);
-	return ;
-}
 
 int	main(int argc, char **argv)
 {

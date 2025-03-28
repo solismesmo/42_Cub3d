@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 01:53:33 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/27 21:29:48 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,30 +54,6 @@ int	ft_is_header_line(char *line)
 	return (0);
 }
 
-void	ft_is_path_null(t_game *game)
-{
-	if(game->img.path_north != NULL)
-	{
-		free(game->img.path_north);
-		game->img.path_north = NULL;
-	}
-	if(game->img.path_south != NULL)
-	{
-		free(game->img.path_south);
-		game->img.path_south = NULL;
-	}
-	if(game->img.path_west != NULL)
-	{
-		free(game->img.path_west);
-		game->img.path_west = NULL;
-	}
-	if(game->img.path_east != NULL)
-	{
-		free(game->img.path_east);
-		game->img.path_east = NULL;
-	}
-}
-
 void	ft_parse_texture(char *line, t_game *game)
 {
 	char	**tokens;
@@ -89,15 +65,26 @@ void	ft_parse_texture(char *line, t_game *game)
 		ft_error("Error: Invalid texture path\n", game);
 		return ;
 	}
-	ft_is_path_null(game);
 	if (ft_strncmp(tokens[0], "NO", 2) == 0)
-		game->img.path_north = ft_strdup(tokens[1]);
-	else if (ft_strncmp(tokens[0], "SO", 2) == 0)
-		game->img.path_south = ft_strdup(tokens[1]);
-	else if (ft_strncmp(tokens[0], "WE", 2) == 0)
-		game->img.path_west = ft_strdup(tokens[1]);
-	else if (ft_strncmp(tokens[0], "EA", 2) == 0)
-		game->img.path_east = ft_strdup(tokens[1]);
+	{
+		if (game->img.path_north == NULL)
+			game->img.path_north = ft_strdup(tokens[1]);
+	}
+	else if (ft_strncmp(tokens[0], "SO", 2) == 0 && game->img.path_south == NULL)
+	{	
+		if(game->img.path_south != NULL)
+			game->img.path_south = ft_strdup(tokens[1]);
+	}
+	else if (ft_strncmp(tokens[0], "WE", 2) == 0 && game->img.path_west == NULL)
+	{	
+		if(game->img.path_west != NULL)
+			game->img.path_west = ft_strdup(tokens[1]);
+	}
+	else if (ft_strncmp(tokens[0], "EA", 2) == 0 && game->img.path_east == NULL)
+	{
+		if(game->img.path_east != NULL)
+			game->img.path_east = ft_strdup(tokens[1]);
+	}
 	else
 		ft_error("Error: Unknown texture identifier\n", game);
 	game->map.check_inputs++;

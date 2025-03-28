@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:48:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/03/27 01:31:57 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/27 21:11:17 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,4 +137,5 @@ void	ft_init_moves(t_game *game)
 	game->img.path_south = NULL;
 	game->img.path_west = NULL;
 	game->mlx = NULL;
+	game->map.num_textures = 0;
 }

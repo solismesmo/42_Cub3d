@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/25 09:28:58 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/27 21:10:50 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_map
 	int				col_move[4];
 	int				check_coins;
 	int				check_inputs;
+	int				num_textures;
 }	t_map;
 
 typedef struct s_player

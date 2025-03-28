@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:18:35 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 20:25:40 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/27 21:37:51 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_init_mlx(t_game *game)
 	WINDOW_HEIGHT, "Cube 3D", true);
 	if (!game->mlx)
 	{
-		ft_error("Erro na mlx. \n", game);
+		ft_error("Error: mlx. \n", game);
 		exit(1);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/26 18:57:29 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/27 21:14:28 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,17 @@ typedef struct s_game
 	unsigned int	floor_color;
 	int				ceiling_color;
 
-}					t_game;
+}	t_game;
+
+typedef struct s_render_info
+{
+	int		draw_start;
+	int		draw_end;
+	int		line_height;
+	int		tex_x;
+	double	step;
+	double	tex_pos;
+}	t_render_info;
 
 void			ft_check_args(int argc, char **argv);
 void			ft_check_walls(t_game *game);

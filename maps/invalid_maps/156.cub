@@ -1,8 +1,8 @@
 
-WA ./textures_xpm/naturalbricks_hd_verydark.xpm
-SO ./textures_xpm/south_texture.png
-EA ./textures_xpm/east_texture.png
-NO ./textures_xpm/north_texture.png
+WA ./src/textures//naturalbricks_hd_verydark.xpm
+SO ./src/textures//south_texture.png
+EA ./src/textures//east_texture.png
+NO ./src/textures//north_texture.png
 
 C 155,100,160
 F 111,111,111

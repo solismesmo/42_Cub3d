@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:23:09 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 22:05:43 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/28 23:07:47 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ void	ft_parsing_file(t_game *game)
 	else if (ft_strlen(game->map.line) > 1 && \
 	(!is_whitespace(*game->map.line)))
 	{
-		map_full = ft_strdup(game->map.line);
 		game->map.lines++;
 		free(game->map.line);
-		break ;
 	}
 	else
 		free(game->map.line);

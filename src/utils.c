@@ -6,13 +6,13 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:30:08 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 20:38:51 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/28 23:00:58 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	is_whitespace(char c)
+int	is_whitespace(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' || \
 		c == '\v' || c == '\f' || c == '\r');

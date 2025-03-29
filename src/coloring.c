@@ -6,13 +6,13 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:26:24 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 22:03:20 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/28 22:40:59 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_isrgb(const char *str, int i)
+int	ft_isrgb(const char *str, int i, int num_count)
 {
 	if (!ft_isdigit((unsigned char)str[i]))
 		return (0);
@@ -31,6 +31,7 @@ int	ft_isrgb(const char *str, int i)
 		if (!ft_isdigit((unsigned char)str[i]))
 			return (0);
 	}
+	return (1);
 }
 
 int	ft_check_rgb_format(const char *str)
@@ -44,7 +45,7 @@ int	ft_check_rgb_format(const char *str)
 		i++;
 	while (num_count < 3)
 	{
-		ft_isrgb(str, i);
+		ft_isrgb(str, i, num_count);
 	}
 	while (str[i] && ft_isspace((unsigned char)str[i]))
 		i++;

@@ -18,7 +18,7 @@ SRCS	:= main.c calculate_ll.c calculate.c coloring.c init_image.c \
 		map_check_utils.c map_check_utils_II.c init_map.c \
 		open_close_args.c free_error.c raycasting.c moviment.c \
 		draw.c dda.c map_check.c map_print.c parsing.c utils.c \
-		walls.c
+		walls.c path.c
 
 
 OBJECTS_PATH = objects

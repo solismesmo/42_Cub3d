@@ -6,13 +6,13 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:32:45 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 20:39:36 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/28 23:09:34 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	t_missing_walls(t_game *game, char *temp, char *line, int len)
+void	ft_missing_walls(t_game *game, char *temp, char *line, int len)
 {
 	if (game->map.lines > 1)
 	{

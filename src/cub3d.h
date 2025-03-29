@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/28 00:23:49 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/28 23:09:48 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,16 +201,26 @@ void			ft_check_closed(t_game *game);
 void			ft_mark_visited(t_game *game, int row, int col);
 void			print_fill_matrix(t_game *game);
 void			print_matrix(t_game *game);
-int				ft_dfs_done(int next_row, int col, int col_move, t_game *game);
-//void			ft_calculate_line_height(t_game *game, t_render_info *info);
-//double			ft_calculate_wall_x(t_game *game);
-//void			ft_calculate_tex_x(t_game *game, t_render_info *info, double wall_x);
+int				ft_dfs_done(int next_row, int col, int *col_move, t_game *game);
+void			ft_calculate_line_height(t_game *game, t_render_info *info);
+double			ft_calculate_wall_x(t_game *game);
+void			ft_calculate_tex_x(t_game *game, t_render_info *info, double wall_x);
 void			ft_calculate_delta_dist(t_game *game, t_dda_params *params);
 void			ft_calculate_perpendicular_dist(t_game *game, t_dda_params *params);
 void			ft_calculate_wall_line_height(t_game *game);
+int				ft_isspace(int c);
+void			ft_ceiling_floor(t_game *game, mlx_image_t *img, int x, int y);
+void			ft_check_path(char *path);
+int				ft_check_texture_path(const char *path, t_game *game);
+void			ft_parsing_file(t_game *game);
+void			ft_parse_texture(char *line, t_game *game);
+void			ft_parse_color(char *line, t_game *game);
+int				is_whitespace(char c);
+int				ft_check_rgb_format(const char *str);
+void			ft_msg_color_fmt(char **tokens, t_game *game);
+void			ft_convert_rgb(t_rgb color, char **tokens, t_game *game);
+void			ft_missing_walls(t_game *game, char *temp, char *line, int len);
 
-static void		ft_calculate_line_height(t_game *game, t_render_info *info);
-static double	ft_calculate_wall_x(t_game *game);
-static void		ft_calculate_tex_x(t_game *game, t_render_info *info, double wall_x)
+
 
 #endif

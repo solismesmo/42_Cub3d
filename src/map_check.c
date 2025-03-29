@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 08:29:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/26 18:57:35 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/28 22:59:24 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	ft_mark_visited(t_game *game, int row, int col)
 	game->map.matrix_fill[row][col] = 'x';
 }
 
-int	ft_dfs_done(int next_row, int col, int col_move, t_game *game)
+int	ft_dfs_done(int next_row, int col, int *col_move, t_game *game)
 {
 	int	next_col;
 	int	next_row_length;
 
-	next_col = col + col_move[i];
+	next_col = col + *col_move;
 	if (next_row < 0 || next_row >= game->map.rows)
 	{
 		printf("Error: open map on line %d\n", next_row);
@@ -41,31 +41,30 @@ int	ft_dfs_done(int next_row, int col, int col_move, t_game *game)
 		if (!ft_dfs_closed(game, next_row, next_col))
 			return (0);
 	}
+	return (1);
 }
 
 int	ft_dfs_closed(t_game *game, int row, int col)
 {
 	int	i;
 	int	row_length;
-	int	row_move;
-	int	col_move;
 	int	next_row;
+	int	row_move[8] = {-1, 1, 0, 0, -1, -1, 1, 1};
+	int	col_move[8] = {0, 0, -1, 1, -1, 1, -1, 1};
 
 	row_length = strlen(game->map.matrix[row]);
-	row_move[8] = {-1, 1, 0, 0, -1, -1, 1, 1};
-	col_move[8] = {0, 0, -1, 1, -1, 1, -1, 1};
 	if ((row == 0 || row == game->map.rows - 1 || \
 		col == 0 || col == row_length - 1) && \
 		game->map.matrix[row][col] != '1')
 	{
-		printf("Error: map open at position [%d][%d]\n", row, col);
+		printf("Error: open map at position [%d][%d]\n", row, col);
 		return (0);
 	}
 	ft_mark_visited(game, row, col);
-	next_row = row + row_move;
 	i = 0;
 	while (i < 8)
 	{
+		next_row = row + row_move[i];
 		ft_dfs_done(next_row, col, col_move, game);
 		i++;
 	}

@@ -6,20 +6,20 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 22:00:19 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/28 00:24:40 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/28 22:34:55 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	ft_calculate_line_height(t_game *game, t_render_info *info)
+void	ft_calculate_line_height(t_game *game, t_render_info *info)
 {
 	info->draw_start = (int)floor(game->img.wall_line_start);
 	info->draw_end = (int)floor(game->img.wall_line_end);
 	info->line_height = info->draw_end - info->draw_start;
 }
 
-static double	ft_calculate_wall_x(t_game *game)
+double	ft_calculate_wall_x(t_game *game)
 {
 	if (game->img.hit_side == 0)
 		return (game->player_info.vector_pos[1] + \
@@ -29,7 +29,7 @@ static double	ft_calculate_wall_x(t_game *game)
 			game->img.perpendicular_dist * game->camera.ray_dir[0]);
 }
 
-static void	ft_calculate_tex_x(t_game *game, t_render_info *info,\
+void	ft_calculate_tex_x(t_game *game, t_render_info *info,\
 	 double wall_x)
 {
 	info->tex_x = (int)((wall_x - floor(wall_x)) * (double)TEX_WIDTH);

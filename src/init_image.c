@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 21:38:22 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 21:47:07 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/28 22:45:37 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_init_image(t_game *game)
 	int				x;
 	int				y;
 
+	x = 0;
 	y = 0;
 	img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	memset(img->pixels, 255, img->width * img->height * BPP);
@@ -52,9 +53,9 @@ void	ft_init_game(t_game *game)
 
 void	ft_ceiling_floor(t_game *game, mlx_image_t *img, int x, int y)
 {
+	x = 0;
 	while (y < (WINDOW_HEIGHT) / 2)
 	{
-		x = 0;
 		while (x < WINDOW_WIDTH)
 		{
 			mlx_put_pixel(img, x, y, game->ceiling_color);

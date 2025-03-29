@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:18:35 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 21:37:51 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/28 23:08:13 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_init_map(t_game *game)
 {
-	char	*tmp;
 	char	*map_full;
 
 	map_full = NULL;
@@ -25,9 +24,7 @@ void	ft_init_map(t_game *game)
 	while (game->map.line != NULL)
 	{
 		game->map.lines++;
-		tmp = map_full;
 		map_full = ft_strjoin(map_full, game->map.line);
-		free(tmp);
 		free(game->map.line);
 		game->map.line = get_next_line(game->fd);
 	}

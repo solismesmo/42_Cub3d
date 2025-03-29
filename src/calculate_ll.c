@@ -6,7 +6,7 @@
 /*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 22:00:19 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/28 22:34:55 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/28 23:16:48 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ double	ft_calculate_wall_x(t_game *game)
 			game->img.perpendicular_dist * game->camera.ray_dir[0]);
 }
 
-void	ft_calculate_tex_x(t_game *game, t_render_info *info,\
-	 double wall_x)
+void	ft_calculate_tex_x(t_game *game, t_render_info *info, \
+	double wall_x)
 {
 	info->tex_x = (int)((wall_x - floor(wall_x)) * (double)TEX_WIDTH);
 	if ((game->img.hit_side == 0 && game->camera.ray_dir[0] > 0) || \

@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   coloring.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:26:24 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/28 22:40:59 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/30 07:34:44 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_isrgb(const char *str, int i, int num_count)
+int	ft_isrgb(const char *str, int *i, int *num_count)
 {
-	if (!ft_isdigit((unsigned char)str[i]))
+	if (!ft_isdigit((unsigned char)str[*i]))
 		return (0);
-	while (str[i] && ft_isdigit((unsigned char)str[i]))
-		i++;
-	num_count++;
-	while (str[i] && ft_isspace((unsigned char)str[i]))
-		i++;
-	if (num_count < 3)
+	while (str[*i] && ft_isdigit((unsigned char)str[*i]))
+		*i += 1;
+	*num_count+= 1;
+	while (str[*i] && ft_isspace((unsigned char)str[*i]))
+		*i += 1;
+	if (*num_count < 3)
 	{
-		if (str[i] != ',')
+		if (str[*i] != ',')
 			return (0);
-		i++;
-		while (str[i] && ft_isspace((unsigned char)str[i]))
-			i++;
-		if (!ft_isdigit((unsigned char)str[i]))
+		*i += 1;
+		while (str[*i] && ft_isspace((unsigned char)str[*i]))
+			*i += 1;
+		if (!ft_isdigit((unsigned char)str[*i]))
 			return (0);
 	}
 	return (1);
@@ -45,7 +45,7 @@ int	ft_check_rgb_format(const char *str)
 		i++;
 	while (num_count < 3)
 	{
-		ft_isrgb(str, i, num_count);
+		ft_isrgb(str, &i, &num_count);
 	}
 	while (str[i] && ft_isspace((unsigned char)str[i]))
 		i++;

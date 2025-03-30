@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:18:35 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/28 23:08:13 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/30 07:03:38 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,45 @@
 
 void	ft_init_map(t_game *game)
 {
+	//char	*line;
+	char	*tmp;
 	char	*map_full;
 
 	map_full = NULL;
 	game->map.line = get_next_line(game->fd);
+
+	
 	while (game->map.line != NULL)
-		ft_parsing_file(game);
+	{
+		if (ft_is_header_line(game->map.line))
+		{
+			if (game->map.line[0] == 'N' || game->map.line[0] == 'S' ||
+				game->map.line[0] == 'W' || game->map.line[0] == 'E')
+				ft_parse_texture(game->map.line, game);
+			else if (game->map.line[0] == 'F' || game->map.line[0] == 'C')
+				ft_parse_color(game->map.line, game);
+			free(game->map.line);
+		}
+		else if (ft_strlen(game->map.line) > 1 && (!is_whitespace(*game->map.line)))
+		{
+			map_full = ft_strdup(game->map.line);
+			game->map.lines++;
+			free(game->map.line);
+			break ;
+		}
+		else
+		{
+			free(game->map.line);
+		}
+		game->map.line = get_next_line(game->fd);
+	}
 	game->map.line = get_next_line(game->fd);
 	while (game->map.line != NULL)
 	{
 		game->map.lines++;
+		tmp = map_full;
 		map_full = ft_strjoin(map_full, game->map.line);
+		free(tmp);
 		free(game->map.line);
 		game->map.line = get_next_line(game->fd);
 	}

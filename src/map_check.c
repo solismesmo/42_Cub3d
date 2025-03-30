@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 08:29:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/29 20:08:44 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/30 08:46:34 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,12 @@ int	ft_dfs_done(int next_row, int col, int *col_move, t_game *game)
 	}
 	return (1);
 }
-//norm error
+
 int	ft_dfs_closed(t_game *game, int row, int col)
 {
 	int	i;
 	int	row_length;
 	int	next_row;
-	int	row_move[8] = {-1, 1, 0, 0, -1, -1, 1, 1};
-	int	col_move[8] = {0, 0, -1, 1, -1, 1, -1, 1};
 
 	row_length = strlen(game->map.matrix[row]);
 	if ((row == 0 || row == game->map.rows - 1 || \
@@ -64,8 +62,8 @@ int	ft_dfs_closed(t_game *game, int row, int col)
 	i = 0;
 	while (i < 8)
 	{
-		next_row = row + row_move[i];
-		ft_dfs_done(next_row, col, col_move, game);
+		next_row = row + game->map.row_move[i];
+		ft_dfs_done(next_row, col, game->map.col_move, game);
 		i++;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:26:24 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/30 07:34:44 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/30 08:31:27 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_isrgb(const char *str, int *i, int *num_count)
 		return (0);
 	while (str[*i] && ft_isdigit((unsigned char)str[*i]))
 		*i += 1;
-	*num_count+= 1;
+	*num_count += 1;
 	while (str[*i] && ft_isspace((unsigned char)str[*i]))
 		*i += 1;
 	if (*num_count < 3)

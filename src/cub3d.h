@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/29 19:44:07 by livieira         ###   ########.fr       */
+/*   Updated: 2025/03/30 08:44:10 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ typedef struct s_map
 	int				enemy;
 	int				p_row;
 	int				p_col;
-	int				row_move[4];
-	int				col_move[4];
+	int				row_move[8];
+	int				col_move[8];
 	int				check_coins;
 	int				check_inputs;
 	int				num_textures;

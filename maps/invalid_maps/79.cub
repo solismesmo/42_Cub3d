@@ -1,8 +1,8 @@
 
-EA ./woolftex/./src/textures//naturalbricks_hd_verydark.xpm
-NO ./src/textures//north_texture.png
-SO ./src/textures//south_texture.png
-WE ./src/textures//west_texture.png
+EA ./woolftex/./src/textures/naturalbricks_hd_verydark.xpm
+NO ./src/textures/north_texture.png
+SO ./src/textures/south_texture.png
+WE ./src/textures/west_texture.png
 
 C 155,100,160
 F 111,111,111

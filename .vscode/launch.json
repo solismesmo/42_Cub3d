@@ -6,7 +6,7 @@
         "request": "launch",
         "name": "Launch cub3D",
         "program": "${workspaceFolder}/cub3D",
-        "args": ["./invalid_maps/0.cub"],
+        "args": ["./invalid_maps/169.cub"],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}",
         "environment": [],

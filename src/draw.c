@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:37:08 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 08:21:49 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 13:44:49 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_render_texture_line(t_game *game, int pixels, mlx_image_t *image)
 
 	y = game->info.draw_start;
 	if (game->info.draw_end >= WINDOW_HEIGHT)
-	game->info.draw_end = WINDOW_HEIGHT - 1;
+		game->info.draw_end = WINDOW_HEIGHT - 1;
 	while (y < game->info.draw_end)
 	{
 		tex_y = (int)game->info.tex_pos & (TEX_HEIGHT - 1);

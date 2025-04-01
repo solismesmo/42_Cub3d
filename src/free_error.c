@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:52:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/04/01 10:37:35 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 13:26:38 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ void	ft_finish(char *message, t_game *game)
 		ft_free_map(game->map.matrix_fill);
 	if (game->mlx != NULL)
 		mlx_terminate(game->mlx);
-	if(game->img.path_east != NULL)
+	if (game->img.path_east != NULL)
 		free(game->img.path_east);
-	if(game->img.path_north != NULL)
+	if (game->img.path_north != NULL)
 		free(game->img.path_north);
-	if(game->img.path_south != NULL)
+	if (game->img.path_south != NULL)
 		free(game->img.path_south);
-	if(game->img.path_west != NULL)
+	if (game->img.path_west != NULL)
 		free(game->img.path_west);
 	free(game);
 	exit(0);

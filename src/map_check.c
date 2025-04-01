@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 08:29:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/27 01:00:54 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 12:21:08 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,25 +77,6 @@ void ft_check_closed(t_game *game)
     {
         //print_fill_matrix(game);
         ft_error("Missing Walls", game);
-    }
-}
-
-void	print_fill_matrix(t_game *game)
-{
-    int i;
-    int j;
-
-    i = 0;
-    while (game->map.matrix_fill[i] != NULL)
-    {
-        j = 0;
-        while (game->map.matrix_fill[i][j] != '\0')
-        {
-            printf("%c", game->map.matrix_fill[i][j]);
-            j++;
-        }
-        printf("\n");
-        i++;
     }
 }
 

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/04/01 08:57:36 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 11:26:06 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,19 @@ typedef struct s_rgb
 	int		g;
 	int		b;
 }	t_rgb;
+
+typedef struct s_dda_params
+{
+	double	delta_distx;
+	double	delta_disty;
+	double	dist_side_x;
+	double	dist_side_y;
+	double	step_x;
+	double	step_y;
+	double	dda_line_size_x;
+	double	dda_line_size_y;
+	int		wall_map_pos[2];
+}	t_dda_params;
 
 typedef struct s_render_info
 {
@@ -145,6 +158,7 @@ typedef struct s_game
 	unsigned int	floor_color;
 	int				ceiling_color;
 	t_render_info	info;
+	t_dda_params	params;
 
 }					t_game;
 
@@ -212,5 +226,12 @@ void			ft_calculate_line_height(t_game *game);
 double			ft_calculate_wall_x(t_game *game);
 void			ft_calculate_tex_x(t_game *game, double wall_x);
 void			ft_render_texture_line(t_game *game, int pixels, mlx_image_t *image);
+void			ft_initialize_side_dist_and_step_x(t_game *game);
+void			ft_initialize_side_dist_and_step_y(t_game *game);
+void			ft_update_dda_line_size(t_game *game);
+void			ft_perform_dda_loop(t_game *game);
+void			ft_calculate_delta_dist(t_game *game);
+void			ft_calculate_perpendicular_dist(t_game *game);
+void			ft_calculate_wall_line_height(t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:44:25 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/04/01 10:51:36 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 11:49:05 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_char_allowed(char c)
 {
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == '1' || c == '0' || c == '\n')
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == '1' || c == '0' || c == '\n' || c == ' ')
 		return (1);
 	else
 		return (0);
@@ -44,10 +44,6 @@ void	ft_char_check(t_game *game)
 
 void	ft_map_condition(t_game *game)
 {
-	// if (game->map.exits != 1)
-	// 	ft_error("The map doesn't have exit or have more then one exit\n", game);
-	// if (game->map.coin == 0)
-	// 	ft_error("The map doesn't have at least one collectable\n", game);
 	if (game->map.player != 1)
 		ft_error("have zero or more then one player\n", game);
 	return ;

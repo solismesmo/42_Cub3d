@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/03/27 21:10:50 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 07:31:35 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define WINDOW_WIDTH 1020
 # define WINDOW_HEIGHT 800
 
-#define BPP sizeof(int32_t)
+# define BPP sizeof(int32_t)
 
 # include <stddef.h>
 # include <stdlib.h>
@@ -41,11 +41,12 @@
 
 
 
-typedef enum e_bool
+typedef struct s_rgb
 {
-	FALSE,
-	TRUE
-}					t_bool;
+	int		r;
+	int		g;
+	int		b;
+}	t_rgb;
 
 typedef struct s_map
 {
@@ -130,6 +131,7 @@ typedef struct s_game
 	t_mult			player[1];
 	int				moves;
 	t_camera		camera;
+	t_rgb			color;
 	unsigned int				floor_color;
 	int				ceiling_color;
 
@@ -173,9 +175,24 @@ unsigned int 	fix_color(unsigned int color);
 int				ft_is_header_line(char *line);
 void			ft_check_map_information(t_game *game);
 int				ft_dfs_closed(t_game *game, int row, int col);
-void	ft_check_closed(t_game *game);
-void	ft_mark_visited(t_game *game, int row, int col);
-void	print_fill_matrix(t_game *game);
-void	print_matrix(t_game *game);
+void			ft_check_closed(t_game *game);
+void			ft_mark_visited(t_game *game, int row, int col);
+void			print_fill_matrix(t_game *game);
+void			print_matrix(t_game *game);
+char			*ft_process_header(t_game *game);
+char			*ft_process_map(t_game *game, char *map_full);
+void			ft_parse_header_line(char *line, t_game *game);
+char			*ft_process_map(t_game *game, char *map_full);
+void			ft_init_map(t_game *game);
+void			ft_parsing_file(t_game *game);
+void			ft_parse_texture(char *line, t_game *game);
+void			ft_parse_color(char *line, t_game *game);
+void			ft_convert_rgb(char **tokens, t_game *game);
+int				is_whitespace(char c);
+int				ft_is_space(char **str);
+int				ft_isspace(int c);
+int				ft_check_rgb_format(const char *str);
+void			ft_msg_color_fmt(char **tokens, t_game *game);
+void			ft_set_texture_aux(char *id, char *path, t_game *game);
 
 #endif

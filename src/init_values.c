@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 08:36:33 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 13:39:41 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 15:26:21 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_game	*ft_init_values(void)
 	game->moves = 1;
 	game->map.p_col = 0;
 	game->map.p_row = 0;
-	
 	ft_init_moves(game);
 	return (game);
 }

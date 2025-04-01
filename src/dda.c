@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:37:04 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 15:21:39 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 15:25:43 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_dda(t_game *game)
 {
-
 	game->params.wall_map_pos[0] = game->player_info.vector_pos[0];
 	game->params.wall_map_pos[1] = game->player_info.vector_pos[1];
 	game->img.hit = 0;
@@ -85,7 +84,7 @@ void	ft_perform_dda_loop(t_game *game)
 			game->params.wall_map_pos[1] += game->params.step_y;
 			game->img.hit_side = 1;
 		}
-		if (game->map.matrix[game->params.wall_map_pos[1]]\
+		if (game->map.matrix[game->params.wall_map_pos[1]] \
 			[game->params.wall_map_pos[0]] == '1')
 			game->img.hit = 1;
 	}

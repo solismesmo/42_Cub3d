@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 06:18:16 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 06:33:09 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 10:27:58 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_isrgb(const char *str, int *i, int *num_count)
 {
 	if (!ft_isdigit((unsigned char)str[*i]))
-		return (0);
+		ft_error("Error: Invalid color format\n", NULL);
 	while (str[*i] && ft_isdigit((unsigned char)str[*i]))
 		*i += 1;
 	*num_count += 1;

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:52:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/03/27 01:28:21 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 10:37:35 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,23 @@ void	ft_error_message(char *message)
 void	ft_error(char *message, t_game *game)
 {
 	ft_putstr_fd(message, STDOUT_FILENO);
-	if (game->map.line != NULL)
+	if (game && game->map.line != NULL)
 		free(game->map.line);
-	if (game->map.map_full != NULL)
+	if (game && game->map.map_full != NULL)
 		free(game->map.map_full);
-	if (game->map.matrix != NULL)
+	if (game && game->map.matrix != NULL)
 		ft_free_map(game->map.matrix);
-	if (game->map.matrix_fill != NULL)
+	if (game && game->map.matrix_fill != NULL)
 		ft_free_map(game->map.matrix_fill);
-	if(game->img.path_east != NULL)
+	if (game && game->img.path_east != NULL)
 		free(game->img.path_east);
-	if(game->img.path_north != NULL)
+	if (game && game->img.path_north != NULL)
 		free(game->img.path_north);
-	if(game->img.path_south != NULL)
+	if (game && game->img.path_south != NULL)
 		free(game->img.path_south);
-	if(game->img.path_west != NULL)
+	if (game && game->img.path_west != NULL)
 		free(game->img.path_west);
-	if (game->mlx != NULL)
+	if (game && game->mlx != NULL)
 		mlx_terminate(game->mlx);
 	free(game);
 	exit(1);

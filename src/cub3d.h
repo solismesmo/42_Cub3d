@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/04/01 07:31:35 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 08:57:36 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ typedef struct s_rgb
 	int		g;
 	int		b;
 }	t_rgb;
+
+typedef struct s_render_info
+{
+	int		draw_start;
+	int		draw_end;
+	int		line_height;
+	int		tex_x;
+	double	step;
+	double	tex_pos;
+}	t_render_info;
 
 typedef struct s_map
 {
@@ -132,8 +142,9 @@ typedef struct s_game
 	int				moves;
 	t_camera		camera;
 	t_rgb			color;
-	unsigned int				floor_color;
+	unsigned int	floor_color;
 	int				ceiling_color;
+	t_render_info	info;
 
 }					t_game;
 
@@ -194,5 +205,12 @@ int				ft_isspace(int c);
 int				ft_check_rgb_format(const char *str);
 void			ft_msg_color_fmt(char **tokens, t_game *game);
 void			ft_set_texture_aux(char *id, char *path, t_game *game);
+void			ft_ceiling_floor(t_game *game, mlx_image_t *img, int x, int y);
+void			ft_draw_image(t_game *game, int pixels, mlx_image_t *image);
+void			ft_initialize_texture_info(t_game *game);
+void			ft_calculate_line_height(t_game *game);
+double			ft_calculate_wall_x(t_game *game);
+void			ft_calculate_tex_x(t_game *game, double wall_x);
+void			ft_render_texture_line(t_game *game, int pixels, mlx_image_t *image);
 
 #endif

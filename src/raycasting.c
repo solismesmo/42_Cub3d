@@ -6,182 +6,94 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/31 23:06:48 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 08:06:53 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_init_game(t_game *game)
-{
-	ft_init_player(game);
-	ft_init_textures(game);
-	ft_init_image(game);
-	ft_find_rays(game);
-}
-void ft_check_path(char *path)
-{
-	if (!path || !(*path))
-		return;
-	while(*path != '\n')
-	{
-		path++;
-	}
-	*path = '\0';
-}
+// void ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
+// {
+//     // Convertemos os valores double que você calculou na DDA
+//     // para variáveis locais, facilitando a leitura.
+//     double wallLineStart = game->img.wall_line_start;
+//     double wallLineEnd   = game->img.wall_line_end;
 
-int ft_check_texture_path(const char *path, t_game *game)
-{
-    int fd;
-	
-	if (path == NULL)
-		ft_error("Erro ao abrir o arquivo de textura", game);
-    fd = open(path, O_RDONLY);
-    if (fd < 0)
-        ft_error("Erro ao abrir o arquivo de textura", game);
-    close(fd);
-    return(1);      // Caminho válido
-}
+//     // Convertemos para int para usar no loop de desenho.
+//     int drawStart = (int)floor(wallLineStart);
+//     int drawEnd   = (int)floor(wallLineEnd);
 
-void	ft_init_textures(t_game *game)
-{
-	
-	ft_check_path(game->img.path_north);
-	ft_check_path(game->img.path_south);
-	ft_check_path(game->img.path_west);
-	ft_check_path(game->img.path_east);
-	ft_check_texture_path(game->img.path_north, game);
-	ft_check_texture_path(game->img.path_south, game);
-	ft_check_texture_path(game->img.path_west, game);
-	ft_check_texture_path(game->img.path_east, game);
-	ft_place_png(game, &game->img.north, game->img.path_north);
-	ft_place_png(game, &game->img.south, game->img.path_south);
-	ft_place_png(game, &game->img.west, game->img.path_west);
-	ft_place_png(game, &game->img.east, game->img.path_east);
-}
+//     // Calcula a altura (quantos pixels serão desenhados na tela).
+//     int lineHeight = drawEnd - drawStart;
 
-void	ft_place_png(t_game *game, mlx_image_t **image, char *path)
-{
-	mlx_texture_t	*my_texture;
+//     // Se lineHeight for 0 ou negativo, não há o que desenhar.
+//     if (lineHeight <= 0)
+//         return;
 
-	my_texture = mlx_load_png(path);
-	*image = mlx_texture_to_image(game->mlx, my_texture);
-	if(!*image)
-		ft_error("Error: Invalid texture path\n", game);
-	mlx_delete_texture(my_texture);
-}
+//     // ------------------------------------------------------------
+//     // 1) Cálculo de wallX para descobrir em qual coluna da textura
+//     //    iremos começar (valor de 0 a 1 dentro da célula).
+//     // ------------------------------------------------------------
+//     double wallX;
+//     if (game->img.hit_side == 0)
+//         wallX = game->player_info.vector_pos[1] + game->img.perpendicular_dist * game->camera.ray_dir[1];
+//     else
+//         wallX = game->player_info.vector_pos[0] + game->img.perpendicular_dist * game->camera.ray_dir[0];
 
-void ft_init_image(t_game *game)
-{
-	mlx_image_t* img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	memset(img->pixels, 255, img->width * img->height * BPP);
-	mlx_image_to_window(game->mlx, img, 0, 0);
-	int x = 0;
-	int y = 0;
-	while (y < (WINDOW_HEIGHT) / 2)
-	{
-		x = 0;
-		while (x < WINDOW_WIDTH)
-		{
-			mlx_put_pixel(img, x, y,  game->ceiling_color);
-			x++;
-		}
-		y++;
-	}
-	while (y < (WINDOW_HEIGHT))
-	{
-		x = 0;
-		while (x < WINDOW_WIDTH)
-		{
-			mlx_put_pixel(img, x, y,  game->floor_color);
-			x++;
-		}
-		y++;
-	}
-	game->img.image = img;
-}
+//     // wallX fica no intervalo [0,1); remove a parte inteira
+//     wallX -= floor(wallX);
 
-void ft_draw_image(t_game *game, int pixels, mlx_image_t *image)
-{
-    // Convertemos os valores double que você calculou na DDA
-    // para variáveis locais, facilitando a leitura.
-    double wallLineStart = game->img.wall_line_start;
-    double wallLineEnd   = game->img.wall_line_end;
+//     // Converte wallX em coordenada X da textura (0 a TEX_WIDTH - 1)
+//     int texX = (int)(wallX * (double)TEX_WIDTH);
 
-    // Convertemos para int para usar no loop de desenho.
-    int drawStart = (int)floor(wallLineStart);
-    int drawEnd   = (int)floor(wallLineEnd);
+//     // Inverte a coordenada X caso o raio esteja vindo “de trás”
+//     if (game->img.hit_side == 0 && game->camera.ray_dir[0] > 0)
+//         texX = TEX_WIDTH - texX - 1;
+//     if (game->img.hit_side == 1 && game->camera.ray_dir[1] < 0)
+//         texX = TEX_WIDTH - texX - 1;
 
-    // Calcula a altura (quantos pixels serão desenhados na tela).
-    int lineHeight = drawEnd - drawStart;
+//     // ------------------------------------------------------------
+//     // 2) Cálculo do step e posição inicial na textura (texPos).
+//     // ------------------------------------------------------------
+//     // step = quantos pixels da textura "andamos" a cada 1 pixel da tela
+//     double step = 1.0 * TEX_HEIGHT / lineHeight;
 
-    // Se lineHeight for 0 ou negativo, não há o que desenhar.
-    if (lineHeight <= 0)
-        return;
+//     // Normalmente, a fórmula para texPos é:
+//     //   (drawStart - (WINDOW_HEIGHT / 2 - lineHeight / 2)) * step
+//     // Ou seja, o quanto o topo da linha está acima do meio da tela.
+//     double texPos = (drawStart - (WINDOW_HEIGHT / 2.0 - lineHeight / 2.0)) * step;
 
-    // ------------------------------------------------------------
-    // 1) Cálculo de wallX para descobrir em qual coluna da textura
-    //    iremos começar (valor de 0 a 1 dentro da célula).
-    // ------------------------------------------------------------
-    double wallX;
-    if (game->img.hit_side == 0)
-        wallX = game->player_info.vector_pos[1] + game->img.perpendicular_dist * game->camera.ray_dir[1];
-    else
-        wallX = game->player_info.vector_pos[0] + game->img.perpendicular_dist * game->camera.ray_dir[0];
+//     // ------------------------------------------------------------
+//     // 3) Clamp de drawStart e drawEnd, ajustando também texPos.
+//     // ------------------------------------------------------------
+//     // Se drawStart for negativo, significa que parte da parede
+//     // deveria estar acima da tela. Precisamos "pular" essa parte
+//     // na textura, avançando texPos.
+//     if (drawStart < 0)
+//     {
+//         texPos += (0 - drawStart) * step;
+//         drawStart = 0;
+//     }
+//     if (drawEnd >= WINDOW_HEIGHT)
+//         drawEnd = WINDOW_HEIGHT - 1;
 
-    // wallX fica no intervalo [0,1); remove a parte inteira
-    wallX -= floor(wallX);
+//     // ------------------------------------------------------------
+//     // 4) Loop de desenho (varremos de drawStart até drawEnd).
+//     // ------------------------------------------------------------
+//     for (int y = drawStart; y < drawEnd; y++)
+//     {
+//         // Pegamos a coordenada Y da textura (entre 0 e TEX_HEIGHT-1).
+//         int texY = (int)texPos & (TEX_HEIGHT - 1);
+//         texPos += step;
 
-    // Converte wallX em coordenada X da textura (0 a TEX_WIDTH - 1)
-    int texX = (int)(wallX * (double)TEX_WIDTH);
+//         // Busca a cor no pixel (texX, texY) da textura apropriada.
+//         int color = get_texture_pixel(game, texX, texY);
 
-    // Inverte a coordenada X caso o raio esteja vindo “de trás”
-    if (game->img.hit_side == 0 && game->camera.ray_dir[0] > 0)
-        texX = TEX_WIDTH - texX - 1;
-    if (game->img.hit_side == 1 && game->camera.ray_dir[1] < 0)
-        texX = TEX_WIDTH - texX - 1;
+//         // Desenha na imagem final.
+//         mlx_put_pixel(image, pixels, y, color);
+//     }
+// }
 
-    // ------------------------------------------------------------
-    // 2) Cálculo do step e posição inicial na textura (texPos).
-    // ------------------------------------------------------------
-    // step = quantos pixels da textura "andamos" a cada 1 pixel da tela
-    double step = 1.0 * TEX_HEIGHT / lineHeight;
-
-    // Normalmente, a fórmula para texPos é:
-    //   (drawStart - (WINDOW_HEIGHT / 2 - lineHeight / 2)) * step
-    // Ou seja, o quanto o topo da linha está acima do meio da tela.
-    double texPos = (drawStart - (WINDOW_HEIGHT / 2.0 - lineHeight / 2.0)) * step;
-
-    // ------------------------------------------------------------
-    // 3) Clamp de drawStart e drawEnd, ajustando também texPos.
-    // ------------------------------------------------------------
-    // Se drawStart for negativo, significa que parte da parede
-    // deveria estar acima da tela. Precisamos "pular" essa parte
-    // na textura, avançando texPos.
-    if (drawStart < 0)
-    {
-        texPos += (0 - drawStart) * step;
-        drawStart = 0;
-    }
-    if (drawEnd >= WINDOW_HEIGHT)
-        drawEnd = WINDOW_HEIGHT - 1;
-
-    // ------------------------------------------------------------
-    // 4) Loop de desenho (varremos de drawStart até drawEnd).
-    // ------------------------------------------------------------
-    for (int y = drawStart; y < drawEnd; y++)
-    {
-        // Pegamos a coordenada Y da textura (entre 0 e TEX_HEIGHT-1).
-        int texY = (int)texPos & (TEX_HEIGHT - 1);
-        texPos += step;
-
-        // Busca a cor no pixel (texX, texY) da textura apropriada.
-        int color = get_texture_pixel(game, texX, texY);
-
-        // Desenha na imagem final.
-        mlx_put_pixel(image, pixels, y, color);
-    }
-}
 
 
 unsigned int fix_color(unsigned int color)

@@ -1,20 +1,20 @@
-==43661== Memcheck, a memory error detector
-==43661== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==43661== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
-==43661== Command: ./cub3D ./maps/valid_maps/0.cub
-==43661== Parent PID: 42327
-==43661== 
-==43661== 
-==43661== HEAP SUMMARY:
-==43661==     in use at exit: 299,966 bytes in 3,312 blocks
-==43661==   total heap usage: 108,919 allocs, 105,607 frees, 230,760,980 bytes allocated
-==43661== 
-==43661== LEAK SUMMARY:
-==43661==    definitely lost: 0 bytes in 0 blocks
-==43661==    indirectly lost: 0 bytes in 0 blocks
-==43661==      possibly lost: 0 bytes in 0 blocks
-==43661==    still reachable: 0 bytes in 0 blocks
-==43661==         suppressed: 299,966 bytes in 3,312 blocks
-==43661== 
-==43661== For lists of detected and suppressed errors, rerun with: -s
-==43661== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==63165== Memcheck, a memory error detector
+==63165== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==63165== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==63165== Command: ./cub3D ./maps/invalid_maps/169.cub
+==63165== Parent PID: 29803
+==63165== 
+==63165== 
+==63165== HEAP SUMMARY:
+==63165==     in use at exit: 299,966 bytes in 3,312 blocks
+==63165==   total heap usage: 106,615 allocs, 103,303 frees, 105,150,995 bytes allocated
+==63165== 
+==63165== LEAK SUMMARY:
+==63165==    definitely lost: 0 bytes in 0 blocks
+==63165==    indirectly lost: 0 bytes in 0 blocks
+==63165==      possibly lost: 0 bytes in 0 blocks
+==63165==    still reachable: 0 bytes in 0 blocks
+==63165==         suppressed: 299,966 bytes in 3,312 blocks
+==63165== 
+==63165== For lists of detected and suppressed errors, rerun with: -s
+==63165== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

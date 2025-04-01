@@ -6,7 +6,7 @@
         "request": "launch",
         "name": "Launch cub3D",
         "program": "${workspaceFolder}/cub3D",
-        "args": ["./0.cub"],
+        "args": ["./20.cub"],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}",
         "environment": [],

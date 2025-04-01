@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 23:20:24 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 07:42:59 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 09:48:51 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_process_header(t_game *game)
 			ft_parse_header_line(line, game);
 			free(line);
 		}
-		else if (ft_strlen(line) > 1 && !is_whitespace(*line))
+		else if (ft_strlen(line) > 1 && !ft_is_space(&line))
 		{
 			map_full = ft_strdup(line);
 			game->map.lines++;

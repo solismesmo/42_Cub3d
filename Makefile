@@ -17,7 +17,8 @@ LIBFT = ./includes/libft/libft.a
 SRCS	:= main.c map_check_utils.c map_check_utils_II.c \
 			open_close_args.c free_error.c raycasting.c moviment.c \
 			draw.c dda.c map_check.c init_values.c init_map.c \
-			parsing.c color.c utils.c
+			parsing.c color.c utils.c textures.c image.c \
+			calculate.c calculate_II.c
 
 
 OBJECTS_PATH = objects

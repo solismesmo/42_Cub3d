@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 05:58:02 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 19:56:06 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 20:06:38 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_parse_color(char *line, t_game *game)
 	rgb_values = ft_split(game->color.tokens[1], ',');
 	if (!rgb_values || !rgb_values[0] || !rgb_values[1] || !rgb_values[2])
 	{
+		ft_free_map(rgb_values);
 		ft_free_map(game->color.tokens);
 		free(line);
 		ft_error("Error: Invalid RGB values\n", game);
@@ -72,6 +73,7 @@ void	ft_parse_color(char *line, t_game *game)
 	if (game->color.r < 0 || game->color.r > 255 || game->color.g < 0 \
 		|| game->color.g > 255 || game->color.b < 0 || game->color.b > 255)
 		{
+			ft_free_map(rgb_values);
 			ft_free_map(game->color.tokens);
 			free(line);
 			ft_error("Error: RGB values must be between 0 and 255\n", game);

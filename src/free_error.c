@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:52:24 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/04/01 18:36:01 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 20:03:58 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	ft_error(char *message, t_game *game)
 			free(game->img.path_west);
 		if (game->mlx)
 			mlx_terminate(game->mlx);
-		// if (game->color.tokens != NULL)
-		// 	ft_free_map(game->color.tokens);
 		free(game);
 	}
 	exit(1);

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:10:41 by bruno             #+#    #+#             */
-/*   Updated: 2025/03/27 02:16:50 by bruno            ###   ########.fr       */
+/*   Updated: 2025/03/31 21:39:59 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,7 +294,7 @@ void ft_dda(t_game *game)
 		delta_disty = fabs(1 / game->camera.ray_dir[1]);
 	else
 		delta_disty = INFINITY;
-	game->player_info.square_pos[0] = (int)game->player_info.vector_pos[0];
+	(int)game->game->player_info.square_pos[0] = player_info.vector_pos[0];
 	game->player_info.square_pos[1] = (int)game->player_info.vector_pos[1];
 	if (game->camera.ray_dir[0] < 0)
 	{

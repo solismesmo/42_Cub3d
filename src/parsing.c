@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 05:58:02 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 19:33:58 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 19:56:06 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	ft_parse_texture(char *line, t_game *game)
 		ft_error("Error: Invalid texture path\n", game);
 		return ;
 	}
-	ft_set_texture_aux(game->color.tokens[0], game->color.tokens[1], game);
+	ft_set_texture_aux(game->color.tokens[0], game->color.tokens[1], game, line);
 	game->map.check_inputs++;
 	ft_free_map(game->color.tokens);
 }
 
-void	ft_set_texture_aux(char *id, char *path, t_game *game)
+void	ft_set_texture_aux(char *id, char *path, t_game *game, char * line)
 {
 	if (ft_strncmp(id, "NO", 2) == 0 && game->img.path_north == NULL)
 		game->img.path_north = ft_strdup(path);
@@ -39,7 +39,11 @@ void	ft_set_texture_aux(char *id, char *path, t_game *game)
 	else if (ft_strncmp(id, "EA", 2) == 0 && game->img.path_east == NULL)
 		game->img.path_east = ft_strdup(path);
 	else
+	{
+		ft_free_map(game->color.tokens);
+		free(line);
 		ft_error("Error: Unknown texture identifier\n", game);
+	}
 }
 
 void	ft_parse_color(char *line, t_game *game)

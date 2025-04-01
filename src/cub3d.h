@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/04/01 19:36:17 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 19:55:21 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ int				ft_is_space(char **str);
 int				ft_isspace(int c);
 int				ft_check_rgb_format(t_game *game, char *line);
 void			ft_msg_color_fmt(t_game *game);
-void			ft_set_texture_aux(char *id, char *path, t_game *game);
+void			ft_set_texture_aux(char *id, char *path, t_game *game, char *line);
 void			ft_ceiling_floor(t_game *game, mlx_image_t *img, int x, int y);
 void			ft_draw_image(t_game *game, int pixels, mlx_image_t *image);
 void			ft_initialize_texture_info(t_game *game);

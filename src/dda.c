@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:37:04 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 11:19:39 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 14:31:01 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	ft_dda(t_game *game)
 {
 
-	game->params.wall_map_pos[0] = game->player_info.square_pos[0];
-	game->params.wall_map_pos[1] = game->player_info.square_pos[1];
+	game->params.wall_map_pos[0] = game->player_info.vector_pos[0];
+	game->params.wall_map_pos[1] = game->player_info.vector_pos[1];
 	game->img.hit = 0;
 	game->img.hit_side = -1;
 	game->img.perpendicular_dist = 0;

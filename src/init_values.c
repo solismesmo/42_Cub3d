@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 08:36:33 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 06:16:11 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 13:39:41 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,25 @@ void	ft_init_moves(t_game *game)
 	game->map.row_move[1] = 1;
 	game->map.row_move[2] = 0;
 	game->map.row_move[3] = 0;
+	game->map.row_move[4] = -1;
+	game->map.row_move[5] = -1;
+	game->map.row_move[6] = 1;
+	game->map.row_move[7] = 1;
 	game->map.col_move[0] = 0;
 	game->map.col_move[1] = 0;
 	game->map.col_move[2] = -1;
 	game->map.col_move[3] = 1;
-	game->moves = 0;
-	game->map.check_coins = 0;
+	game->map.col_move[4] = -1;
+	game->map.col_move[5] = 1;
+	game->map.col_move[6] = -1;
+	game->map.col_move[7] = 1;
 	game->map.matrix_fill = NULL;
 	game->img.path_east = NULL;
 	game->img.path_north = NULL;
 	game->img.path_south = NULL;
 	game->img.path_west = NULL;
+	game->map.check_inputs = 0;
 	game->mlx = NULL;
-	game->map.num_textures = 0;
 }
 
 t_game	*ft_init_values(void)
@@ -55,7 +61,7 @@ t_game	*ft_init_values(void)
 	game->moves = 1;
 	game->map.p_col = 0;
 	game->map.p_row = 0;
-	game->map.check_inputs = 0;
+	
 	ft_init_moves(game);
 	return (game);
 }

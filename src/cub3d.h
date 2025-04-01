@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/04/01 11:26:06 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 13:35:16 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define WINDOW_WIDTH 1020
 # define WINDOW_HEIGHT 800
 
-# define BPP sizeof(int32_t)
+# define BPP 4
 
 # include <stddef.h>
 # include <stdlib.h>
@@ -38,8 +38,6 @@
 # define EA "./src/textures/east_texture.png"
 
 # define MAP_EXT_DEF ".cub"
-
-
 
 typedef struct s_rgb
 {
@@ -104,14 +102,14 @@ typedef struct s_player
 	int				y;
 	int				found;
 	char			direction;
-	
+
 }	t_player;
 
 typedef struct s_camera
 {
 	double	plane[2];
 	double	negative_plane[2];
-	double  ray_dir[2];
+	double	ray_dir[2];
 
 }	t_camera;
 
@@ -138,7 +136,7 @@ typedef struct s_image
 	int				hit_side;
 	double			wall_line_start;
 	double			wall_line_end;
-	double 			perpendicular_dist;
+	double			perpendicular_dist;
 }	t_image;
 
 typedef struct s_game
@@ -192,11 +190,11 @@ void			ft_init_game(t_game *game);
 void			ft_draw_image(t_game *game, int pixels, mlx_image_t *image);
 void			ft_init_image(t_game *game);
 void			ft_rotate_player(t_game *game, double angle);
-void    		ft_refresh_img(t_game *game);
+void			ft_refresh_img(t_game *game);
 void			ft_move_player(t_game *game, double move_speed);
 void			ft_init_textures(t_game *game);
 int				get_texture_pixel(t_game *game, int texX, int texY);
-unsigned int 	fix_color(unsigned int color);
+unsigned int	fix_color(unsigned int color);
 int				ft_is_header_line(char *line);
 void			ft_check_map_information(t_game *game);
 int				ft_dfs_closed(t_game *game, int row, int col);
@@ -225,7 +223,8 @@ void			ft_initialize_texture_info(t_game *game);
 void			ft_calculate_line_height(t_game *game);
 double			ft_calculate_wall_x(t_game *game);
 void			ft_calculate_tex_x(t_game *game, double wall_x);
-void			ft_render_texture_line(t_game *game, int pixels, mlx_image_t *image);
+void			ft_render_texture_line(t_game *game, int pixels, \
+	mlx_image_t *image);
 void			ft_initialize_side_dist_and_step_x(t_game *game);
 void			ft_initialize_side_dist_and_step_y(t_game *game);
 void			ft_update_dda_line_size(t_game *game);

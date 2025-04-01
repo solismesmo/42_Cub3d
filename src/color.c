@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 06:18:16 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 10:27:58 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 13:44:30 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,11 @@ uint32_t	rgba_to_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 void	ft_convert_rgb(char **tokens, t_game *game)
 {
 	if (ft_strncmp(tokens[0], "F", 1) == 0)
-		game->floor_color = rgba_to_rgba(game->color.r, game->color.g, game->color.b, 255);
+		game->floor_color = rgba_to_rgba(game->color.r, game->color.g, \
+			game->color.b, 255);
 	else if (ft_strncmp(tokens[0], "C", 1) == 0)
-		game->ceiling_color = rgba_to_rgba(game->color.r, game->color.g, game->color.b, 255);
+		game->ceiling_color = rgba_to_rgba(game->color.r, game->color.g, \
+			game->color.b, 255);
 	else
 		ft_error("Error: Unknown color identifier\n", game);
 }

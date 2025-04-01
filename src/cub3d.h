@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/04/01 19:55:21 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 20:47:05 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,5 +234,6 @@ void			ft_calculate_delta_dist(t_game *game);
 void			ft_calculate_perpendicular_dist(t_game *game);
 void			ft_calculate_wall_line_height(t_game *game);
 int				ft_isrgb(t_game *game, int *i, int *num_count, char *ft_line);
+void			ft_parser_error(char **rgb_values, t_game *game, char *line, char *message);
 
 #endif

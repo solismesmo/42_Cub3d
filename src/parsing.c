@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 05:58:02 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 07:35:04 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 19:33:58 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 
 void	ft_parse_texture(char *line, t_game *game)
 {
-	char	**tokens;
-
-	tokens = ft_split(line, ' ');
-	if (!tokens || !tokens[0] || !tokens[1] || \
-		ft_strlen(tokens[0]) > 2 || tokens[2])
+	game->color.tokens = ft_split(line, ' ');
+	if (!game->color.tokens || !game->color.tokens[0] || !game->color.tokens[1] || \
+		ft_strlen(game->color.tokens[0]) > 2 || game->color.tokens[2])
 	{
-		ft_free_map(tokens);
+		ft_free_map(game->color.tokens);
+		free(line);
 		ft_error("Error: Invalid texture path\n", game);
 		return ;
 	}
-	ft_set_texture_aux(tokens[0], tokens[1], game);
+	ft_set_texture_aux(game->color.tokens[0], game->color.tokens[1], game);
 	game->map.check_inputs++;
-	ft_free_map(tokens);
+	ft_free_map(game->color.tokens);
 }
 
 void	ft_set_texture_aux(char *id, char *path, t_game *game)
@@ -45,17 +44,21 @@ void	ft_set_texture_aux(char *id, char *path, t_game *game)
 
 void	ft_parse_color(char *line, t_game *game)
 {
-	char	**tokens;
 	char	**rgb_values;
 
-	tokens = ft_split(line, ' ');
-	if (!tokens || !tokens[0] || !tokens[1] || \
-		!(ft_check_rgb_format(tokens[1])) || \
-		ft_strlen(tokens[0]) > 1 || tokens[2])
-		ft_msg_color_fmt(tokens, game);
-	rgb_values = ft_split(tokens[1], ',');
+	game->color.tokens = ft_split(line, ' ');
+	if (!game->color.tokens || !game->color.tokens[0] || !game->color.tokens[1] || \
+		!(ft_check_rgb_format(game, line)) || \
+		ft_strlen(game->color.tokens[0]) > 1 || game->color.tokens[2])
+		{
+			free(line);
+			ft_msg_color_fmt(game);
+		}
+	rgb_values = ft_split(game->color.tokens[1], ',');
 	if (!rgb_values || !rgb_values[0] || !rgb_values[1] || !rgb_values[2])
 	{
+		ft_free_map(game->color.tokens);
+		free(line);
 		ft_error("Error: Invalid RGB values\n", game);
 		return ;
 	}
@@ -64,9 +67,13 @@ void	ft_parse_color(char *line, t_game *game)
 	game->color.b = ft_atoi(rgb_values[2]);
 	if (game->color.r < 0 || game->color.r > 255 || game->color.g < 0 \
 		|| game->color.g > 255 || game->color.b < 0 || game->color.b > 255)
-		ft_error("Error: RGB values must be between 0 and 255\n", game);
-	ft_convert_rgb(tokens, game);
+		{
+			ft_free_map(game->color.tokens);
+			free(line);
+			ft_error("Error: RGB values must be between 0 and 255\n", game);
+		}
+	ft_convert_rgb(game);
 	game->map.check_inputs++;
 	ft_free_map(rgb_values);
-	ft_free_map(tokens);
+	ft_free_map(game->color.tokens);
 }

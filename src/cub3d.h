@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/04/01 20:47:05 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 21:15:13 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,8 @@ int				ft_is_space(char **str);
 int				ft_isspace(int c);
 int				ft_check_rgb_format(t_game *game, char *line);
 void			ft_msg_color_fmt(t_game *game);
-void			ft_set_texture_aux(char *id, char *path, t_game *game, char *line);
+void			ft_set_texture_aux(char *id, char *path, \
+	t_game *game, char *line);
 void			ft_ceiling_floor(t_game *game, mlx_image_t *img, int x, int y);
 void			ft_draw_image(t_game *game, int pixels, mlx_image_t *image);
 void			ft_initialize_texture_info(t_game *game);
@@ -233,7 +234,10 @@ void			ft_perform_dda_loop(t_game *game);
 void			ft_calculate_delta_dist(t_game *game);
 void			ft_calculate_perpendicular_dist(t_game *game);
 void			ft_calculate_wall_line_height(t_game *game);
-int				ft_isrgb(t_game *game, int *i, int *num_count, char *ft_line);
-void			ft_parser_error(char **rgb_values, t_game *game, char *line, char *message);
+int				ft_isrgb(t_game *game, int *i, int *num_count, \
+	char *ft_line);
+void			ft_parser_error(char **rgb_values, \
+	t_game *game, char *line, char *message);
+int				ft_check_next_cell(t_game *game, int row, int col, int i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 06:18:16 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 19:37:52 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 20:59:52 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,20 @@ int	ft_isrgb(t_game *game, int *i, int *num_count, char *line)
 		ft_free_map(game->color.tokens);
 		ft_error("Error: Invalid color format\n", game);
 	}
-	while (game->color.tokens[1][*i] && ft_isdigit((unsigned char)game->color.tokens[1][*i]))
+	while (game->color.tokens[1][*i] && \
+		ft_isdigit((unsigned char)game->color.tokens[1][*i]))
 		*i += 1;
 	*num_count += 1;
-	while (game->color.tokens[1][*i] && ft_isspace((unsigned char)game->color.tokens[1][*i]))
+	while (game->color.tokens[1][*i] && \
+		ft_isspace((unsigned char)game->color.tokens[1][*i]))
 		*i += 1;
 	if (*num_count < 3)
 	{
 		if (game->color.tokens[1][*i] != ',')
 			return (0);
 		*i += 1;
-		while (game->color.tokens[1][*i] && ft_isspace((unsigned char)game->color.tokens[1][*i]))
+		while (game->color.tokens[1][*i] && \
+			ft_isspace((unsigned char)game->color.tokens[1][*i]))
 			*i += 1;
 		if (!ft_isdigit((unsigned char)game->color.tokens[1][*i]))
 			return (0);
@@ -45,13 +48,15 @@ int	ft_check_rgb_format(t_game *game, char *line)
 
 	i = 0;
 	num_count = 0;
-	while (game->color.tokens[1][i] && ft_isspace((unsigned char)game->color.tokens[1][i]))
+	while (game->color.tokens[1][i] && \
+		ft_isspace((unsigned char)game->color.tokens[1][i]))
 		i++;
 	while (num_count < 3)
 	{
 		ft_isrgb(game, &i, &num_count, line);
 	}
-	while (game->color.tokens[1][i] && ft_isspace((unsigned char)game->color.tokens[1][i]))
+	while (game->color.tokens[1][i] && \
+		ft_isspace((unsigned char)game->color.tokens[1][i]))
 		i++;
 	if (game->color.tokens[1][i] != '\0')
 		return (0);

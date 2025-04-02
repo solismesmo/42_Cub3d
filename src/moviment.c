@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moviment.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 20:50:14 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 13:32:50 by livieira         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:54:33 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_keyhooks(mlx_key_data_t keydata, void *param)
 		ft_rotate_player(game, -0.05);
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
-		ft_finish("see you soon", game);
+		ft_finish("see you soon\n", game);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_close_args.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:43:03 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/02/25 23:57:43 by livieira         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:38:05 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	ft_check_args(int argc, char **argv)
 	if (argc < 2)
 		ft_error_message("Too few arguments\n");
 	map_ext = (ft_strrchr(argv[1], 46));
+	if (!map_ext)
+		ft_error_message("Invalid file name: Missing extension.\n");
 	ext_len = ft_strlen(map_ext);
 	if (ext_len < 4)
 		ext_len = 4;

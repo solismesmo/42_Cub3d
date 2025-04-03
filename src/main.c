@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:14:31 by livieira          #+#    #+#             */
-/*   Updated: 2025/04/01 07:42:33 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/03 15:39:38 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int	main(int argc, char **argv)
 	ft_init_game(game);
 	mlx_key_hook(game->mlx, &ft_keyhooks, game);
 	mlx_loop(game->mlx);
-	ft_finish("Thanks for playing", game);
+	ft_finish("Thanks for playing \n", game);
 	return (0);
 }

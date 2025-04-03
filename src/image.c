@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: livieira <livieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 07:55:05 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 07:57:58 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/03 15:53:10 by livieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	ft_init_image(t_game *game)
 
 void	ft_ceiling_floor(t_game *game, mlx_image_t *img, int x, int y)
 {
-	x = 0;
 	while (y < (WINDOW_HEIGHT) / 2)
 	{
+		x = 0;
 		while (x < WINDOW_WIDTH)
 		{
 			mlx_put_pixel(img, x, y, game->ceiling_color);
@@ -58,3 +58,27 @@ void	ft_ceiling_floor(t_game *game, mlx_image_t *img, int x, int y)
 		y++;
 	}
 }
+
+/* void    ft_ceiling_floor(t_game *game, mlx_image_t *img, int x, int y)
+{
+    unsigned int    ceiling;
+    unsigned int    floor;
+
+    x = 0;
+    y = 0;
+    ceiling = game->ceiling_color;
+    floor = game->floor_color;
+    while (y < WINDOW_WIDTH)
+    {
+        y = 0;
+        while (y < WINDOW_HEIGHT)
+        {
+            if (y < WINDOW_HEIGHT / 2)
+                mlx_put_pixel(img, x, y, ceiling);
+            else
+                mlx_put_pixel(img, x, y, floor);
+            y++;
+        }
+        x++;
+    }
+} */

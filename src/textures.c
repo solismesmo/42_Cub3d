@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 07:49:17 by bruno             #+#    #+#             */
-/*   Updated: 2025/04/01 07:53:22 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/01 23:19:40 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_check_texture_path(const char *path, t_game *game)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_error("Error: Trying to open texture path", game);
+		ft_error("Error: Trying to open texture path\n", game);
 		return (0);
 	}
 	close(fd);

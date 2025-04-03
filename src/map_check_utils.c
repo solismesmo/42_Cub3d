@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:44:25 by bgomes-l          #+#    #+#             */
-/*   Updated: 2025/04/01 13:44:03 by livieira         ###   ########.fr       */
+/*   Updated: 2025/04/01 23:21:32 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void	ft_char_check(t_game *game)
 void	ft_map_condition(t_game *game)
 {
 	if (game->map.player != 1)
-		ft_error("have zero or more then one player\n", game);
+		ft_error("Have zero or more then one player\n", game);
 	return ;
 }

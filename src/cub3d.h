@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bgomes-l <bgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:10 by livieira          #+#    #+#             */
-/*   Updated: 2025/04/01 21:15:13 by bruno            ###   ########.fr       */
+/*   Updated: 2025/04/03 11:28:02 by bgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ typedef struct s_map
 	int				columns;
 	int				lines;
 	int				rows;
-	int				coin;
-	int				exits;
 	int				floor;
 	int				walls;
 	int				enemy;
@@ -89,7 +87,6 @@ typedef struct s_map
 	int				p_col;
 	int				row_move[8];
 	int				col_move[8];
-	int				check_coins;
 	int				check_inputs;
 	int				num_textures;
 }	t_map;
@@ -149,7 +146,6 @@ typedef struct s_game
 	t_map			map;
 	t_image			img;
 	int				count;
-	t_mult			coin[100000];
 	t_mult			player[1];
 	int				moves;
 	t_camera		camera;

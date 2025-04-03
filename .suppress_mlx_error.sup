@@ -62,3 +62,16 @@
    fun:_dl_init
    ...
 }
+{
+   <MLX_INVALID_READ>
+   Memcheck:Addr8
+   ...
+   fun:strncmp
+}
+{
+   <MLX_DLOPEN_LOST>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   ...
+   fun:_dl_find_object_update
+}

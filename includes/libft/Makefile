@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bruno <bruno@student.42.fr>                +#+  +:+       +#+         #
+#    By: livieira < livieira@student.42sp.org.br    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 13:30:54 by bgomes-l          #+#    #+#              #
-#    Updated: 2025/03/21 02:10:41 by bruno            ###   ########.fr        #
+#    Updated: 2025/04/02 22:23:43 by livieira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,14 +43,14 @@ $(NAME): $(M_OBJ)
 bonus: $(B_OBJ)
 
 %.o: %.c $(HEADER)
-	cc $(FLAGS) -c $< -o $@
-	ar -rcs $(NAME) $@
+	@cc $(FLAGS) -c $< -o $@
+	@ar -rcs $(NAME) $@
 
 clean:
-	rm -f $(M_OBJ) $(B_OBJ)
+	@rm -f $(M_OBJ) $(B_OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

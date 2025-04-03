@@ -1,16 +1,11 @@
 NAME		:= cub3D
-NAME_BONUS		:= cub3D_bonus
-
 CFLAGS	:= -g3 -Wextra -Wall -Werror -Wunreachable-code
 LIBMLX	:= ./includes/lib/MLX42
 LIBFT	:= ./includes/libft
 HEADERS	:= -I $(LIBMLX)/include -I $(LIBFT)
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 MK = mkdir -p
-
 SOURCE_PATH = src/
-SOURCE_BONUS_PATH = src_bonus/
-
 LIBFT_PATH = ./includes/libft/
 LIBFT = ./includes/libft/libft.a
 
@@ -27,38 +22,36 @@ OBJS	:= $(addprefix $(OBJECTS_PATH)/, $(SRCS:%.c=%.o))
 
 all: $(LIBFT) libmlx $(NAME)
 
-$(LIBFT): 
-	make -C $(LIBFT_PATH)
+$(LIBFT):
+	@echo "Compiling Libft..."
+	@make -C $(LIBFT_PATH)
+	@echo "Libft is ready!"
 
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(OBJECTS_PATH)/%.o: $(SOURCE_PATH)%.c
 	@$(MK) $(@D)
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<) "
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 $(NAME): $(OBJS)
+	@echo "Compiling Cub3D..."
 	@$(CC) $(OBJS) $(LIBFT) $(LIBS) $(HEADERS) -o $(NAME)
-
-bonus: libmlx $(NAME_BONUS)
-
-$(OBJECTS_BONUS_PATH)/%.o: $(SOURCE_BONUS_PATH)%.c
-	@$(MK) $(@D)
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<) "
-
-$(NAME_BONUS): $(OBJS_BONUS)
-	@$(CC) $(OBJS_BONUS) $(LIBFT) $(LIBS) $(HEADERS) -o $(NAME_BONUS)
+	@echo "Lets play!"
 
 clean:
+	@echo "Cleaning only the object files."
 	@rm -rf $(OBJS) $(OBJS_BONUS)
 	@rm -rf $(LIBMLX)/build 
 	@rm -rf $(OBJECTS_PATH)
 	@rm -rf $(OBJECTS_BONUS_PATH)
 	@rm -rf $(LIBFT_PATH)/*.o
-
+	@echo "Without object files."
 
 fclean: clean
-	@rm -rf $(NAME) $(LIBFT) $(NAME_BONUS) 
+	@echo "Now it's a full cleanup"
+	@rm -rf $(NAME) $(LIBFT)
+	@echo "All clean"
 
 re: fclean all
 
